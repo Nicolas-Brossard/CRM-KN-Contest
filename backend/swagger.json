@@ -1,0 +1,19 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Mon API",
+      "version": "1.0.0",
+      "description": "Une API simple pour mon projet"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3000/api",
+        "description": "Serveur de développement local"
+      }
+    ],
+    "paths": {},
+    "components": {
+      "schemas": {}
+    }
+  }
+  
