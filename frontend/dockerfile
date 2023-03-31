@@ -10,6 +10,8 @@ COPY package*.json ./
 # Installez les dépendances du projet
 RUN npm install
 
+ENV PATH /app/node_modules/.bin:$PATH
+
 # Copiez le reste des fichiers de l'application dans le répertoire de travail
 COPY . .
 
@@ -17,4 +19,4 @@ COPY . .
 EXPOSE 8000
 
 # Lancez l'application en mode développement
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "dev:watch"]
