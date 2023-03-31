@@ -1,0 +1,20 @@
+# Utilisez l'image officielle de Node.js
+FROM node:latest
+
+# Créez un dossier pour l'application et définissez-le comme répertoire de travail
+WORKDIR /appFront
+
+# Copiez package.json et package-lock.json dans le répertoire de travail
+COPY package*.json ./
+
+# Installez les dépendances du projet
+RUN npm install
+
+# Copiez le reste des fichiers de l'application dans le répertoire de travail
+COPY . .
+
+# Exposez le port sur lequel l'application s'exécutera
+EXPOSE 8000
+
+# Lancez l'application en mode développement
+CMD ["npm", "run", "dev"]

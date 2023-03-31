@@ -2,14 +2,14 @@ version: '3.8'
 
 services:
   api:
-    build: .
+    build: ./backend
     ports:
       - '3000:3000'
     environment:
       - DATABASE_URL=postgres://crmuser:crmpassword@db:5432/crmdb
     volumes:
-      - ./src:/app/src
-      - /app/node_modules
+      - ./backend/src:/appBack/src
+      - /appBack/node_modules
     depends_on:
       - db
   db:
@@ -22,6 +22,13 @@ services:
       - db-data:/var/lib/postgresql/data
     ports:
       - '5432:5432'
+  frontend:
+    build: ./frontend
+    volumes:
+      - ./frontend:/appFront
+      - /appFront/node_modules
+    ports:
+      - '8000:8000'
 
 volumes:
   db-data:
