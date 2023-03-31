@@ -1,10 +1,9 @@
 const { Sequelize } = require('sequelize');
 const config = require('../config/config');
-const ContactModel = require('./contact');
-const CompanyModel = require('./company');
-const ActionModel = require('./action');
-const TodoModel = require('./todo');
 const UserModel = require('./user');
+const ContactModel = require('./contact');
+const TodoModel = require('./todo');
+const ActionModel = require('./action');
 
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
   dialect: 'postgres',
@@ -15,9 +14,8 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
 const models = {
   User: UserModel(sequelize),
   Contact: ContactModel(sequelize),
-  Company: CompanyModel(sequelize),
-  Action: ActionModel(sequelize),
   Todo: TodoModel(sequelize),
+  Action: ActionModel(sequelize),
 };
 
 Object.values(models)

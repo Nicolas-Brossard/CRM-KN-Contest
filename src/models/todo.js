@@ -11,20 +11,34 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    dueDate: {
+    date: {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    completed: {
+    is_done: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false,
     },
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
   });
 
   Todo.associate = (models) => {
+    Todo.belongsTo(models.User, {
+      foreignKey: 'user_id',
+      as: 'user',
+    });
     Todo.belongsTo(models.Contact, {
-      foreignKey: 'contactId',
+      foreignKey: 'contact_id',
       as: 'contact',
     });
   };
