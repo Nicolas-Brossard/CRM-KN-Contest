@@ -3,6 +3,9 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const { sequelize } = require('./models');
 const usersRouter = require('./routes/users');
+const actionRoute = require('./routes/action');
+const todoRoute = require('./routes/todo');
+const contactRoute = require('./routes/contact');
 
 const app = express();
 app.use(bodyParser.json());
@@ -13,6 +16,9 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/users', usersRouter);
+app.use('/api/action', actionRoute);
+app.use('/api/todo', todoRoute);
+app.use('/api/contact', contactRoute);
 
 const PORT = process.env.PORT || 3000;
 sequelize.sync().then(() => {
