@@ -1,10 +1,17 @@
 import React, { useEffect } from 'react';
-import { LoginLayout, DashboardLayout } from '@/layouts';
+import {
+  LoginLayout,
+  DashboardLayout,
+  AuthenticatedLayout,
+  LeadsLayout,
+  ProspectLayout,
+  CustomersLayout,
+} from '@/layouts';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 
 const App: React.FC = () => {
-  const title = 'CRM - NK'; // votre titre
+  const title = 'CRM - NK';
 
   useEffect(() => {
     document.title = title;
@@ -20,10 +27,22 @@ const App: React.FC = () => {
       >
         <Routes>
           <Route path="/" element={<LoginLayout />} />
-          <Route path="/dashboard" element={<DashboardLayout />} />
-          <Route path="/liste-leads" element={<DashboardLayout />} />
-          <Route path="/liste-prospects" element={<DashboardLayout />} />
-          <Route path="/liste-clients" element={<DashboardLayout />} />
+          <Route
+            path="/dashboard"
+            element={<AuthenticatedLayout component={DashboardLayout} />}
+          />
+          <Route
+            path="/liste-leads"
+            element={<AuthenticatedLayout component={LeadsLayout} />}
+          />
+          <Route
+            path="/liste-prospects"
+            element={<AuthenticatedLayout component={ProspectLayout} />}
+          />
+          <Route
+            path="/liste-clients"
+            element={<AuthenticatedLayout component={CustomersLayout} />}
+          />
         </Routes>
       </SnackbarProvider>
     </Router>

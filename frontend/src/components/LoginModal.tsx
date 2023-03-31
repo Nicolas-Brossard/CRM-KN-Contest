@@ -39,7 +39,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
         }}
       >
         <LogoKN width={'64px'} color="#242424" />
-        Connexion CRM-KN
+        Connexion CRM-NK
       </DialogTitle>
       <DialogContent>
         <TextField
