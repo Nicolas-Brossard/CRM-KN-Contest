@@ -7,11 +7,15 @@ module.exports = (sequelize) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    firstName: {
+    type: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    lastName: {
+    first_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    last_name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -27,27 +31,34 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    status: {
-      type: DataTypes.ENUM(
-        'lead',
-        'lead_mort',
-        'prospect',
-        'prospect_mort',
-        'client'
-      ),
-      allowNull: false,
-      defaultValue: 'lead',
+    company: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
-    type: {
-      type: DataTypes.ENUM('B2B', 'B2C'),
+    location: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    status: {
+      type: DataTypes.STRING,
       allowNull: false,
+    },
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
     },
   });
 
   Contact.associate = (models) => {
-    Contact.belongsTo(models.Company, {
-      foreignKey: 'companyId',
-      allowNull: true,
+    Contact.belongsTo(models.User, {
+      foreignKey: 'user_id',
+      as: 'user',
     });
   };
 
