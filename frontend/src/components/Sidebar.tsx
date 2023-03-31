@@ -1,6 +1,7 @@
 // src/components/Sidebar.tsx
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { LogoKN } from '@/components/LogoKN';
 import {
   Drawer,
   List,
@@ -32,23 +33,29 @@ const Sidebar: React.FC = () => {
           padding: '8px',
         }}
       >
-        {/* Insérez votre logo ici */}
-        {/* <img src="path/to/your/logo.svg" alt="Logo" /> */}
+        <LogoKN width={'64px'} color="#242424" />
       </div>
-      <Typography variant="h6" align="center">
-        KN-CRM
-      </Typography>
       <Divider />
       <List>
-        {['Link 1', 'Link 2', 'Link 3'].map((text, index) => (
-          <ListItem
-            key={text}
-            component={Link}
-            to={`/${text.replace(' ', '-').toLowerCase()}`}
-          >
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        {['Dashboard', 'Liste Leads', 'Liste Prospects', 'Liste Clients'].map(
+          (text, index) => (
+            <ListItem
+              key={text}
+              component={Link}
+              to={`/${text.replace(' ', '-').toLowerCase()}`}
+            >
+              <ListItemText
+                primary={text}
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignContent: 'center',
+                  color: '#242424',
+                }}
+              />
+            </ListItem>
+          )
+        )}
       </List>
     </Drawer>
   );

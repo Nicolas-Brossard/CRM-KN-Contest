@@ -7,6 +7,7 @@ import {
   DialogActions,
   Button,
 } from '@mui/material';
+import { LogoKN } from './LogoKN';
 
 interface LoginModalProps {
   open: boolean;
@@ -28,12 +29,16 @@ const LoginModal: React.FC<LoginModalProps> = ({
   setPassword,
 }) => {
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      style={{ display: 'flex', justifyContent: 'center' }}
-    >
-      <DialogTitle style={{ display: 'flex', justifyContent: 'center' }}>
+    <Dialog open={open} onClose={onClose}>
+      <DialogTitle
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <LogoKN width={'64px'} color="#242424" />
         Connexion CRM-KN
       </DialogTitle>
       <DialogContent>
