@@ -1,4 +1,3 @@
-// src/components/Sidebar.tsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { LogoKN } from '@/components/LogoKN';

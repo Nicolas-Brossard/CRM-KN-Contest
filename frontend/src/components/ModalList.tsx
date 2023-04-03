@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Card,
-  CardActions,
   CardContent,
+  CardActions,
   List,
   ListItem,
   ListItemSecondaryAction,
   ListItemText,
   Typography,
+  Box,
 } from '@mui/material';
+import EmailIcon from '@mui/icons-material/Email';
+import PhoneIcon from '@mui/icons-material/Phone';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import BusinessIcon from '@mui/icons-material/Business';
+import { ContactForm } from './ContactForm';
+import { useSnackbar } from 'notistack';
 
 interface Contact {
   id: number;
@@ -25,29 +32,75 @@ interface Contact {
 interface ModalListProps {
   data: Contact[];
   type: string;
+  refresh: () => void;
 }
 
-const ModalList: React.FC<ModalListProps> = ({ data }) => {
-  const handleDelete = (id: number) => {
-    // Gérer la suppression ici (par exemple, effectuer un appel fetch pour supprimer l'élément de la base de données)
+const ModalList: React.FC<ModalListProps> = ({ data, type, refresh }) => {
+  const [showForm, setShowForm] = useState(false);
+  const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
+
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleAddButtonClick = () => {
+    setShowForm(true);
+  };
+  const handleCloseForm = () => {
+    setShowForm(false);
+    setSelectedContact(null);
+    refresh();
+  };
+
+  const handleDelete = async (id: number) => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/contact/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        refresh();
+        enqueueSnackbar('Contact supprimé avec succès', { variant: 'success' });
+      } else {
+        enqueueSnackbar(
+          "Une erreur s'est produite lors de la suppression du contact",
+          { variant: 'error' }
+        );
+      }
+    } catch (error) {
+      enqueueSnackbar(
+        "Une erreur s'est produite lors de la suppression du contact",
+        { variant: 'error' }
+      );
+    }
   };
 
   const handleUpdate = (id: number) => {
-    // Gérer la mise à jour ici (par exemple, ouvrir un formulaire de mise à jour et effectuer un appel fetch pour mettre à jour l'élément dans la base de données)
+    const contactToEdit = data.find((contact) => contact.id === id);
+    if (contactToEdit) {
+      setSelectedContact(contactToEdit);
+      setShowForm(true);
+    }
   };
 
-  const handleAdd = (id: number) => {
-    // Gérer l ajout (par exemple, ouvrir un formulaire d'ajout et effectuer un appel fetch pour ajouter l'élément dans la base de données)
-  };
   return (
     <Card
       style={{
-        width: '80%',
+        maxWidth: '80%',
+        minWidth: '30%',
         margin: 'auto',
-        height: '50%',
       }}
     >
       <CardContent>
+        {showForm && (
+          <ContactForm
+            type={type}
+            closeForm={handleCloseForm}
+            contact={selectedContact}
+            isEditMode={!!selectedContact}
+          />
+        )}
         {data.length === 0 ? (
           <Typography variant="h6" align="center">
             Aucune donnée disponible
@@ -58,30 +111,84 @@ const ModalList: React.FC<ModalListProps> = ({ data }) => {
               <ListItem key={contact.id}>
                 <ListItemText
                   primary={`${contact.first_name} ${contact.last_name}`}
+                  secondary={
+                    <Box>
+                      {contact.email && (
+                        <Box display="flex" alignItems="center" mb={0.5}>
+                          <EmailIcon fontSize="small" />
+                          <Typography variant="body2" ml={1}>
+                            {contact.email}
+                          </Typography>
+                        </Box>
+                      )}
+                      {contact.phone && (
+                        <Box display="flex" alignItems="center" mb={0.5}>
+                          <PhoneIcon fontSize="small" />
+                          <Typography variant="body2" ml={1}>
+                            {contact.phone}
+                          </Typography>
+                        </Box>
+                      )}
+                      {contact.company && (
+                        <Box display="flex" alignItems="center" mb={0.5}>
+                          <BusinessIcon fontSize="small" />
+                          <Typography variant="body2" ml={1}>
+                            {contact.company}
+                          </Typography>
+                        </Box>
+                      )}
+                      {contact.location && (
+                        <Box display="flex" alignItems="center">
+                          <LocationOnIcon fontSize="small" />
+                          <Typography variant="body2" ml={1}>
+                            {contact.location}
+                          </Typography>
+                        </Box>
+                      )}
+                    </Box>
+                  }
                 />
                 <ListItemSecondaryAction>
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    onClick={() => handleUpdate(contact.id)}
-                    style={{ margin: '5px' }}
-                  >
-                    Modifier
-                  </Button>
-                  <Button
-                    style={{ margin: '5px' }}
-                    variant="outlined"
-                    color="secondary"
-                    onClick={() => handleDelete(contact.id)}
-                  >
-                    Supprimer
-                  </Button>
+                  <Box display="flex" flexDirection="column">
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      onClick={() => handleUpdate(contact.id)}
+                      style={{ margin: '5px' }}
+                    >
+                      Modifier
+                    </Button>
+                    <Button
+                      style={{ margin: '5px' }}
+                      variant="outlined"
+                      color="secondary"
+                      onClick={() => handleDelete(contact.id)}
+                    >
+                      Supprimer
+                    </Button>
+                  </Box>
                 </ListItemSecondaryAction>
               </ListItem>
             ))}
           </List>
         )}
       </CardContent>
+      <CardActions>
+        <Button
+          style={{
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            backgroundColor: '#EDC88C',
+            color: 'white',
+            border: '1px solid #EDC88C',
+            boxShadow: '0px 0px 0px 0px #EDC88C, 0px 0px 0px 0px #EDC88C',
+          }}
+          color="inherit"
+          onClick={handleAddButtonClick}
+        >
+          Ajouter
+        </Button>
+      </CardActions>
     </Card>
   );
 };

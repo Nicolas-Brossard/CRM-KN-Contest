@@ -1,4 +1,5 @@
 import { ModalList } from '@/components';
+import { display } from '@mui/system';
 import React, { useEffect, useState } from 'react';
 
 interface Contact {
@@ -15,8 +16,10 @@ interface Contact {
 interface ModalListContainerProps {
   type: string;
 }
+
 const ModalListContainer: React.FC<ModalListContainerProps> = ({ type }) => {
   const [data, setData] = useState<Contact[]>([]);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,7 +29,11 @@ const ModalListContainer: React.FC<ModalListContainerProps> = ({ type }) => {
     };
 
     fetchData();
-  }, []);
+  }, [refreshKey]);
+
+  const refresh = () => {
+    setRefreshKey(refreshKey + 1);
+  };
 
   return (
     <div
@@ -39,7 +46,7 @@ const ModalListContainer: React.FC<ModalListContainerProps> = ({ type }) => {
       }}
     >
       <h1>{`Liste ${type}`}</h1>
-      <ModalList data={data} type={type} />
+      <ModalList data={data} type={type} refresh={refresh} />
     </div>
   );
 };
