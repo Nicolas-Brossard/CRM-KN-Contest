@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Mon API",
+    "title": "API CRM NK",
     "version": "1.0.0",
-    "description": "Une API simple pour mon projet"
+    "description": "Une API pour mon dashboard CRM"
   },
   "servers": [
     {
