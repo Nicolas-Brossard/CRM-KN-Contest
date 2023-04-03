@@ -3,6 +3,7 @@ import { SideBarContainer } from '@/containers/SideBarContainer/SideBarContainer
 import React from 'react';
 
 const ProspectLayout: React.FC = () => {
+  const type = 'Prospects';
   return (
     <div
       style={{
@@ -21,7 +22,7 @@ const ProspectLayout: React.FC = () => {
           width: '100%',
         }}
       >
-        <ModalListContainer />
+        <ModalListContainer type={type} />
       </div>
     </div>
   );

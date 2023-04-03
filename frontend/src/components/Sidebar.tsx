@@ -33,7 +33,7 @@ const Sidebar: React.FC = () => {
           padding: '8px',
         }}
       >
-        <LogoKN width={'64px'} color="#242424" />
+        <LogoKN width={'64px'} color="#2F3C4D" />
       </div>
       <Divider />
       <List>
@@ -50,7 +50,7 @@ const Sidebar: React.FC = () => {
                   display: 'flex',
                   justifyContent: 'center',
                   alignContent: 'center',
-                  color: '#242424',
+                  color: '#2F3C4D',
                 }}
               />
             </ListItem>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Button,
   Card,
@@ -11,22 +11,34 @@ import {
   Typography,
 } from '@mui/material';
 
-interface DataItem {
+interface Contact {
   id: number;
-  name: string;
+  type: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string | null;
+  company: string | null;
+  location: string | null;
+  status: string;
+}
+interface ModalListProps {
+  data: Contact[];
+  type: string;
 }
 
-const ModalList: React.FC = (props) => {
-  const [data, setData] = useState<DataItem[]>([
-    { id: 1, name: 'Lead 1' },
-    { id: 2, name: 'Lead 2' },
-    { id: 3, name: 'Lead 3' },
-  ]);
-
+const ModalList: React.FC<ModalListProps> = ({ data }) => {
   const handleDelete = (id: number) => {
-    setData(data.filter((item) => item.id !== id));
+    // Gérer la suppression ici (par exemple, effectuer un appel fetch pour supprimer l'élément de la base de données)
   };
 
+  const handleUpdate = (id: number) => {
+    // Gérer la mise à jour ici (par exemple, ouvrir un formulaire de mise à jour et effectuer un appel fetch pour mettre à jour l'élément dans la base de données)
+  };
+
+  const handleAdd = (id: number) => {
+    // Gérer l ajout (par exemple, ouvrir un formulaire d'ajout et effectuer un appel fetch pour ajouter l'élément dans la base de données)
+  };
   return (
     <Card
       style={{
@@ -36,28 +48,40 @@ const ModalList: React.FC = (props) => {
       }}
     >
       <CardContent>
-        <List>
-          {data.map((item) => (
-            <ListItem key={item.id}>
-              <ListItemText primary={item.name} />
-              <ListItemSecondaryAction>
-                <Button
-                  variant="outlined"
-                  color="secondary"
-                  onClick={() => handleDelete(item.id)}
-                >
-                  Supprimer
-                </Button>
-              </ListItemSecondaryAction>
-            </ListItem>
-          ))}
-        </List>
+        {data.length === 0 ? (
+          <Typography variant="h6" align="center">
+            Aucune donnée disponible
+          </Typography>
+        ) : (
+          <List>
+            {data.map((contact) => (
+              <ListItem key={contact.id}>
+                <ListItemText
+                  primary={`${contact.first_name} ${contact.last_name}`}
+                />
+                <ListItemSecondaryAction>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={() => handleUpdate(contact.id)}
+                    style={{ margin: '5px' }}
+                  >
+                    Modifier
+                  </Button>
+                  <Button
+                    style={{ margin: '5px' }}
+                    variant="outlined"
+                    color="secondary"
+                    onClick={() => handleDelete(contact.id)}
+                  >
+                    Supprimer
+                  </Button>
+                </ListItemSecondaryAction>
+              </ListItem>
+            ))}
+          </List>
+        )}
       </CardContent>
-      <CardActions>
-        <Button size="small" color="primary">
-          Voir plus
-        </Button>
-      </CardActions>
     </Card>
   );
 };

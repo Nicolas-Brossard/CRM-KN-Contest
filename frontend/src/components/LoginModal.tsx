@@ -38,7 +38,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
           alignItems: 'center',
         }}
       >
-        <LogoKN width={'64px'} color="#242424" />
+        <LogoKN width={'64px'} color="#2F3C4D" />
         Connexion CRM-NK
       </DialogTitle>
       <DialogContent>
