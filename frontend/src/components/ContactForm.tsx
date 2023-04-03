@@ -234,6 +234,12 @@ const ContactForm: React.FC<ContactFormProps> = ({
                 border: '1px solid #EDC88C',
                 boxShadow: '0px 0px 0px 0px #EDC88C, 0px 0px 0px 0px #EDC88C',
               }}
+              sx={{
+                '&:focus': {
+                  outline: 'transparent',
+                  backgroundColor: 'transparent',
+                },
+              }}
               color="inherit"
               variant="outlined"
             >

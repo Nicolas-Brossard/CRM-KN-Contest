@@ -63,7 +63,7 @@ const DashboardContainer: React.FC = () => {
                 justifyContent: 'center',
               }}
             >
-              <h2>Vos indicateurs</h2>
+              <h2 style={{ color: '#2f3c4d' }}>Indicateurs</h2>
               <IconButton
                 onClick={handleToggleWidgets}
                 sx={{
@@ -77,7 +77,7 @@ const DashboardContainer: React.FC = () => {
                   },
                 }}
               >
-                <ArrowDropDownIcon fontSize="large" sx={{ color: '#fff' }} />
+                <ArrowDropDownIcon fontSize="large" sx={{ color: '#2f3c4d' }} />
               </IconButton>
             </div>
             <Box
@@ -87,13 +87,39 @@ const DashboardContainer: React.FC = () => {
               alignItems="center"
               flexWrap="wrap"
             >
-              <Card sx={{ s: 1, minWidth: 300, maxWidth: '100%', padding: 0 }}>
-                <CardContent sx={{ marginBottom: 0, padding: 0 }}>
+              <Card
+                sx={{
+                  s: 1,
+                  minWidth: 300,
+                  maxWidth: '100%',
+                  padding: 0,
+                }}
+              >
+                <CardContent
+                  sx={{
+                    marginBottom: 0,
+                    padding: 0,
+                    border: '1px solid #fff',
+                    borderRadius: 5,
+                    '&:last-child': {
+                      paddingBottom: 0,
+                    },
+                  }}
+                >
                   <ContactTypePieChart data={contactTypeData} />
                 </CardContent>
               </Card>
               <Card sx={{ m: 1, minWidth: 200, padding: 0 }}>
-                <CardContent sx={{ margin: 0, padding: 0, paddingBottom: 0 }}>
+                <CardContent
+                  sx={{
+                    margin: 0,
+                    padding: 0,
+                    paddingBottom: 0,
+                    '&:last-child': {
+                      paddingBottom: 0,
+                    },
+                  }}
+                >
                   <Typography sx={{ margin: 0 }}>Widget 2</Typography>
                 </CardContent>
               </Card>
@@ -103,7 +129,7 @@ const DashboardContainer: React.FC = () => {
       </div>
       {!showWidgets && (
         <Box display="flex" justifyContent="center" pb={1}>
-          <h2>Vos indicateurs</h2>
+          <h2 style={{ color: '#2f3c4d' }}>Indicateurs</h2>
           <IconButton
             onClick={handleToggleWidgets}
             sx={{
@@ -117,7 +143,7 @@ const DashboardContainer: React.FC = () => {
               },
             }}
           >
-            <ArrowDropUpIcon fontSize="large" sx={{ color: '#fff' }} />
+            <ArrowDropUpIcon fontSize="large" sx={{ color: '#2f3c4d' }} />
           </IconButton>
         </Box>
       )}
@@ -129,7 +155,7 @@ const DashboardContainer: React.FC = () => {
           flex: 1,
         }}
       >
-        <h2>Dashboard</h2>
+        <h2 style={{ color: '#2f3c4d' }}>Tableau de bord</h2>
       </div>
     </div>
   );

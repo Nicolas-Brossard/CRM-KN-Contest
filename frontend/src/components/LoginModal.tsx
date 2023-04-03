@@ -62,7 +62,20 @@ const LoginModal: React.FC<LoginModalProps> = ({
       </DialogContent>
       <DialogActions style={{ display: 'flex', justifyContent: 'center' }}>
         <Button
-          style={{ backgroundColor: 'green', color: 'white' }}
+          style={{
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            backgroundColor: '#EDC88C',
+            color: 'white',
+            border: '1px solid #EDC88C',
+            boxShadow: '0px 0px 0px 0px #EDC88C, 0px 0px 0px 0px #EDC88C',
+          }}
+          sx={{
+            '&:focus': {
+              outline: 'transparent',
+              backgroundColor: 'transparent',
+            },
+          }}
           onClick={handleSubmit}
         >
           Se connecter

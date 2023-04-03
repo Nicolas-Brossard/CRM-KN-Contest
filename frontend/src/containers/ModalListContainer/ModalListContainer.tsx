@@ -54,7 +54,9 @@ const ModalListContainer: React.FC<ModalListContainerProps> = ({ type }) => {
         width: '100%',
       }}
     >
-      <h1>{`Liste ${type}`}</h1>
+      <h1
+        style={{ color: '#2f3c4d', fontSize: '2.2em' }}
+      >{`Liste des ${type.toLowerCase()}`}</h1>
       <ModalList data={data} type={type} refresh={refresh} />
     </div>
   );

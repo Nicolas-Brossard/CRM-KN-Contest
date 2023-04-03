@@ -20,6 +20,7 @@ const Sidebar: React.FC = () => {
         flexShrink: 0,
         '& .MuiDrawer-paper': {
           width: 240,
+          boxShadow: '1px 0px 10px rgba(0, 0, 0, 0.2)',
           boxSizing: 'border-box',
         },
       }}
@@ -36,25 +37,36 @@ const Sidebar: React.FC = () => {
       </div>
       <Divider />
       <List>
-        {['Dashboard', 'Liste Leads', 'Liste Prospects', 'Liste Clients'].map(
-          (text, index) => (
-            <ListItem
-              key={text}
-              component={Link}
-              to={`/${text.replace(' ', '-').toLowerCase()}`}
-            >
-              <ListItemText
-                primary={text}
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignContent: 'center',
-                  color: '#2F3C4D',
-                }}
-              />
-            </ListItem>
-          )
-        )}
+        {[
+          'Votre Dashboard',
+          'Liste des leads',
+          'Liste des prospects',
+          'Liste des clients',
+        ].map((text, index) => (
+          <ListItem
+            key={text}
+            component={Link}
+            to={`/${text
+              .replace('Votre', '')
+              .replace('des', '')
+              .split(' ')
+              .filter((word) => word !== '')
+              .join('-')
+              .toLowerCase()}`}
+          >
+            <ListItemText
+              primary={text}
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignContent: 'center',
+                color: '#2F3C4D',
+                font: 'open-san',
+                fontWeight: 'lighter',
+              }}
+            />
+          </ListItem>
+        ))}
       </List>
     </Drawer>
   );
