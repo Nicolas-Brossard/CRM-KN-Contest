@@ -152,6 +152,27 @@ const ModalList: React.FC<ModalListProps> = ({ data, type, refresh }) => {
                   <Box display="flex" flexDirection="column">
                     <Button
                       variant="outlined"
+                      style={{
+                        margin: '5px',
+                        color: '#12750bee',
+                        borderColor: '#12750bee',
+                      }}
+                      onClick={() => handleDelete(contact.id)}
+                      sx={{
+                        '&:hover': {
+                          backgroundColor: '#12750bee',
+                          color: 'white',
+                        },
+                        '&:active': {
+                          backgroundColor: '#12750bee',
+                          boxShadow: 'none',
+                        },
+                      }}
+                    >
+                      Actions
+                    </Button>
+                    <Button
+                      variant="outlined"
                       color="primary"
                       onClick={() => handleUpdate(contact.id)}
                       style={{ margin: '5px' }}
@@ -159,10 +180,22 @@ const ModalList: React.FC<ModalListProps> = ({ data, type, refresh }) => {
                       Modifier
                     </Button>
                     <Button
-                      style={{ margin: '5px' }}
                       variant="outlined"
-                      color="secondary"
+                      style={{
+                        margin: '5px',
+                        color: 'red',
+                        borderColor: 'red',
+                      }}
                       onClick={() => handleDelete(contact.id)}
+                      sx={{
+                        '&:hover': {
+                          backgroundColor: 'rgba(255, 0, 0, 0.1)',
+                        },
+                        '&:active': {
+                          backgroundColor: 'rgba(255, 0, 0, 0.2)',
+                          boxShadow: 'none',
+                        },
+                      }}
                     >
                       Supprimer
                     </Button>
