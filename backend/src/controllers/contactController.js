@@ -2,7 +2,11 @@ const { Contact } = require('../models');
 
 exports.getAll = async (req, res) => {
   try {
-    const contacts = await Contact.findAll();
+    const contacts = await Contact.findAll({
+      where: {
+        user_id: req.query.userId,
+      },
+    });
     res.status(200).json(contacts);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -48,7 +52,9 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
   try {
-    const deletedContact = await Contact.destroy({ where: { id: req.params.id } });
+    const deletedContact = await Contact.destroy({
+      where: { id: req.params.id },
+    });
     if (deletedContact === 1) {
       res.status(200).json({ message: 'Contact deleted successfully' });
     } else {
