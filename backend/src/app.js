@@ -7,6 +7,8 @@ const actionRoute = require('./routes/action');
 const todoRoute = require('./routes/todo');
 const contactRoute = require('./routes/contact');
 const authRoutes = require('./routes/auth');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('../swagger.json');
 
 const app = express();
 app.use(bodyParser.json());
@@ -21,6 +23,8 @@ app.use('/api/action', actionRoute);
 app.use('/api/todo', todoRoute);
 app.use('/api/contact', contactRoute);
 app.use('/api/auth', authRoutes);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const PORT = process.env.PORT || 3000;
 sequelize.sync().then(() => {
