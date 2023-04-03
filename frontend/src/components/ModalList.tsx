@@ -88,7 +88,7 @@ const ModalList: React.FC<ModalListProps> = ({ data, type, refresh }) => {
     <Card
       style={{
         maxWidth: '80%',
-        minWidth: '30%',
+        minWidth: '70%',
         margin: 'auto',
       }}
     >
@@ -111,6 +111,7 @@ const ModalList: React.FC<ModalListProps> = ({ data, type, refresh }) => {
               <ListItem key={contact.id}>
                 <ListItemText
                   primary={`${contact.first_name} ${contact.last_name}`}
+                  sx={{ marginBottom: '50px' }}
                   secondary={
                     <Box>
                       {contact.email && (
@@ -160,6 +161,10 @@ const ModalList: React.FC<ModalListProps> = ({ data, type, refresh }) => {
                       onClick={() => handleDelete(contact.id)}
                       sx={{
                         '&:hover': {
+                          backgroundColor: '#12750bee',
+                          color: 'white',
+                        },
+                        '&:focus': {
                           backgroundColor: '#12750bee',
                           color: 'white',
                         },

@@ -59,11 +59,26 @@ const DashboardContainer: React.FC = () => {
             <div
               style={{
                 display: 'flex',
-                alignContent: 'center',
+                alignItems: 'center',
                 justifyContent: 'center',
               }}
             >
               <h2>Vos indicateurs</h2>
+              <IconButton
+                onClick={handleToggleWidgets}
+                sx={{
+                  '&:hover': {
+                    outline: 'transparent',
+                    backgroundColor: 'transparent',
+                  },
+                  '&:focus': {
+                    outline: 'transparent',
+                    backgroundColor: 'transparent',
+                  },
+                }}
+              >
+                <ArrowDropDownIcon fontSize="large" sx={{ color: '#fff' }} />
+              </IconButton>
             </div>
             <Box
               display="flex"
@@ -71,31 +86,41 @@ const DashboardContainer: React.FC = () => {
               justifyContent="center"
               alignItems="center"
               flexWrap="wrap"
-              p={2}
             >
-              <Card sx={{ m: 1, minWidth: 300, maxWidth: '100%' }}>
-                <CardContent>
+              <Card sx={{ s: 1, minWidth: 300, maxWidth: '100%', padding: 0 }}>
+                <CardContent sx={{ marginBottom: 0, padding: 0 }}>
                   <ContactTypePieChart data={contactTypeData} />
                 </CardContent>
               </Card>
-              <Card sx={{ m: 1, minWidth: 200 }}>
-                <CardContent>
-                  <Typography>Widget 2</Typography>
+              <Card sx={{ m: 1, minWidth: 200, padding: 0 }}>
+                <CardContent sx={{ margin: 0, padding: 0, paddingBottom: 0 }}>
+                  <Typography sx={{ margin: 0 }}>Widget 2</Typography>
                 </CardContent>
               </Card>
             </Box>
           </>
         )}
+      </div>
+      {!showWidgets && (
         <Box display="flex" justifyContent="center" pb={1}>
-          <IconButton onClick={handleToggleWidgets}>
-            {showWidgets ? (
-              <ArrowDropUpIcon fontSize="large" />
-            ) : (
-              <ArrowDropDownIcon fontSize="large" />
-            )}
+          <h2>Vos indicateurs</h2>
+          <IconButton
+            onClick={handleToggleWidgets}
+            sx={{
+              '&:hover': {
+                outline: 'transparent',
+                backgroundColor: 'transparent',
+              },
+              '&:focus': {
+                outline: 'transparent',
+                backgroundColor: 'transparent',
+              },
+            }}
+          >
+            <ArrowDropUpIcon fontSize="large" sx={{ color: '#fff' }} />
           </IconButton>
         </Box>
-      </div>
+      )}
       <div
         style={{
           display: 'flex',

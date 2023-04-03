@@ -49,18 +49,18 @@ const renderCustomizedLabel = ({
 const ContactTypePieChart: React.FC<ContactTypePieChartProps> = ({ data }) => {
   return (
     <Grid item xs={12} md={6}>
-      <Typography variant="subtitle1" align="center" sx={{ mt: 2 }}>
+      <Typography variant="subtitle1" align="center" sx={{ mt: '5px' }}>
         Répartition des clients
       </Typography>
       <Grid item xs={12} md={6}>
-        <ResponsiveContainer width="100%" height={250}>
+        <ResponsiveContainer width="100%" height={150}>
           <PieChart>
             <Pie
               data={data}
               cx="50%"
               cy="50%"
-              outerRadius={80}
-              innerRadius={48}
+              outerRadius={48}
+              innerRadius={24}
               fill="#8884d8"
               dataKey="value"
               nameKey="name"
