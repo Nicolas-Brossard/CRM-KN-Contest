@@ -1,35 +1,52 @@
-import { useEffect, useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import {
+  LoginLayout,
+  DashboardLayout,
+  AuthenticatedLayout,
+  LeadsLayout,
+  ProspectLayout,
+  CustomersLayout,
+} from '@/layouts';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { SnackbarProvider } from 'notistack';
 
-function App() {
-  const [count, setCount] = useState(0);
+const App: React.FC = () => {
+  const title = 'CRM - NK';
+
+  useEffect(() => {
+    document.title = title;
+  }, [title]);
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <Router>
+      <SnackbarProvider
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+      >
+        <Routes>
+          <Route path="/" element={<LoginLayout />} />
+          <Route
+            path="/dashboard"
+            element={<AuthenticatedLayout component={DashboardLayout} />}
+          />
+          <Route
+            path="/liste-leads"
+            element={<AuthenticatedLayout component={LeadsLayout} />}
+          />
+          <Route
+            path="/liste-prospects"
+            element={<AuthenticatedLayout component={ProspectLayout} />}
+          />
+          <Route
+            path="/liste-clients"
+            element={<AuthenticatedLayout component={CustomersLayout} />}
+          />
+        </Routes>
+      </SnackbarProvider>
+    </Router>
   );
-}
+};
 
 export default App;
