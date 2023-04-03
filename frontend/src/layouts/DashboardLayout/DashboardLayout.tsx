@@ -1,16 +1,10 @@
 import { Sidebar } from '@/components';
+import { DashboardContainer } from '@/containers';
 import React from 'react';
 
 const DashboardLayout: React.FC = () => {
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        width: '100%',
-        height: '100vh',
-      }}
-    >
+    <div style={{ display: 'flex', flexDirection: 'column', width: 'auto' }}>
       <Sidebar />
       <div
         style={{
@@ -20,7 +14,7 @@ const DashboardLayout: React.FC = () => {
           width: '100%',
         }}
       >
-        <h1>Dashboard</h1>
+        <DashboardContainer />
       </div>
     </div>
   );

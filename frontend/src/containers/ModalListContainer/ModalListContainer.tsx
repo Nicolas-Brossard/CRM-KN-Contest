@@ -1,6 +1,6 @@
 import { ModalList } from '@/components';
-import { display } from '@mui/system';
 import React, { useEffect, useState } from 'react';
+import jwt_decode from 'jwt-decode';
 
 interface Contact {
   id: number;
@@ -22,8 +22,17 @@ const ModalListContainer: React.FC<ModalListContainerProps> = ({ type }) => {
   const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    let userId: string | null = null;
+    if (token) {
+      const decodedToken: any = jwt_decode(token);
+      userId = decodedToken.id;
+    }
+
     const fetchData = async () => {
-      const response = await fetch('http://localhost:3000/api/contact');
+      const response = await fetch(
+        `http://localhost:3000/api/contact?userId=${userId}`
+      );
       const contacts: Contact[] = await response.json();
       setData(contacts.filter((contact) => contact.type === type));
     };

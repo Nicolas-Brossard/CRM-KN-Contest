@@ -32,7 +32,7 @@ const Sidebar: React.FC = () => {
           padding: '8px',
         }}
       >
-        <LogoKN width={'64px'} color="#2F3C4D" />
+        <LogoKN width={'128px'} color="#2F3C4D" />
       </div>
       <Divider />
       <List>
