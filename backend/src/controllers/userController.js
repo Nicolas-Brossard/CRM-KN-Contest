@@ -1,8 +1,18 @@
 const { User } = require('../models');
 
+
+function removePassword (user) {
+  const { password, ...userWithoutPassword } = user;
+  return userWithoutPassword;
+}
+
 exports.getAll = async (req, res) => {
   try {
-    const users = await User.findAll();
+    const users = await User.findAll(
+      {
+        attributes: { exclude: ['password'] },
+      }
+    );
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -11,7 +21,9 @@ exports.getAll = async (req, res) => {
 
 exports.getOne = async (req, res) => {
   try {
-    const user = await User.findByPk(req.params.id);
+    const user = await User.findByPk(req.params.id, {
+      attributes: { exclude: ['password'] },
+    });
     if (user) {
       res.status(200).json(user);
     } else {
