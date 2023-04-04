@@ -3,5 +3,21 @@ import { Sidebar } from './Sidebar';
 import { LogoKN } from './LogoKN';
 import { ModalList } from './ModalList';
 import { ContactForm } from './ContactForm';
+import { ContactTypePieChart } from './ContactTypePieChart';
+import { Board } from './Board';
+import { Column } from './Column';
+import { Card } from './Card';
+import { StrictModeDroppable } from './StrictModeDroppable';
 
-export { LoginModal, Sidebar, LogoKN, ModalList, ContactForm };
+export {
+  LoginModal,
+  Sidebar,
+  LogoKN,
+  ModalList,
+  ContactForm,
+  ContactTypePieChart,
+  Board,
+  Column,
+  Card,
+  StrictModeDroppable,
+};

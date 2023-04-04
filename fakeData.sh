@@ -10,7 +10,7 @@ for t in "${types[@]}"; do
     curl -X POST "$ENDPOINT" \
       -H "Content-Type: application/json" \
       -d "{
-        \"user_id\": 2,
+        \"user_id\": 1,
         \"type\": \"$t\",
         \"first_name\": \"${t}_First_$i\",
         \"last_name\": \"${t}_Last_$i\",

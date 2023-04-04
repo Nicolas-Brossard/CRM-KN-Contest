@@ -10,6 +10,7 @@ import {
   ListItemText,
   Typography,
   Box,
+  Divider,
 } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
@@ -17,6 +18,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import BusinessIcon from '@mui/icons-material/Business';
 import { ContactForm } from './ContactForm';
 import { useSnackbar } from 'notistack';
+import './ModalList.css';
 
 interface Contact {
   id: number;
@@ -88,11 +90,18 @@ const ModalList: React.FC<ModalListProps> = ({ data, type, refresh }) => {
     <Card
       style={{
         maxWidth: '80%',
-        minWidth: '30%',
+        minWidth: '70%',
         margin: 'auto',
+        padding: 5,
       }}
     >
-      <CardContent>
+      <CardContent
+        className="custom-scrollbar"
+        style={{
+          maxHeight: '70vh',
+          overflowY: 'auto',
+        }}
+      >
         {showForm && (
           <ContactForm
             type={type}
@@ -111,6 +120,7 @@ const ModalList: React.FC<ModalListProps> = ({ data, type, refresh }) => {
               <ListItem key={contact.id}>
                 <ListItemText
                   primary={`${contact.first_name} ${contact.last_name}`}
+                  sx={{ marginBottom: '50px' }}
                   secondary={
                     <Box>
                       {contact.email && (
@@ -145,6 +155,7 @@ const ModalList: React.FC<ModalListProps> = ({ data, type, refresh }) => {
                           </Typography>
                         </Box>
                       )}
+                      <Divider />
                     </Box>
                   }
                 />
@@ -160,6 +171,10 @@ const ModalList: React.FC<ModalListProps> = ({ data, type, refresh }) => {
                       onClick={() => handleDelete(contact.id)}
                       sx={{
                         '&:hover': {
+                          color: 'white',
+                        },
+                        '&:focus': {
+                          outline: 'transparent',
                           backgroundColor: '#12750bee',
                           color: 'white',
                         },
@@ -175,6 +190,12 @@ const ModalList: React.FC<ModalListProps> = ({ data, type, refresh }) => {
                       variant="outlined"
                       color="primary"
                       onClick={() => handleUpdate(contact.id)}
+                      sx={{
+                        '&:focus': {
+                          outline: 'transparent',
+                          backgroundColor: 'transparent',
+                        },
+                      }}
                       style={{ margin: '5px' }}
                     >
                       Modifier
@@ -215,6 +236,12 @@ const ModalList: React.FC<ModalListProps> = ({ data, type, refresh }) => {
             color: 'white',
             border: '1px solid #EDC88C',
             boxShadow: '0px 0px 0px 0px #EDC88C, 0px 0px 0px 0px #EDC88C',
+          }}
+          sx={{
+            '&:focus': {
+              outline: 'transparent',
+              backgroundColor: 'transparent',
+            },
           }}
           color="inherit"
           onClick={handleAddButtonClick}
