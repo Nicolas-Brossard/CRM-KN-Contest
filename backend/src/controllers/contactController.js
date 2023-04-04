@@ -2,10 +2,16 @@ const { Contact } = require('../models');
 
 exports.getAll = async (req, res) => {
   try {
+    const query = {
+      user_id: req.query.userId,
+    };
+
+    if (req.query.type) {
+      query.type = req.query.type;
+    }
+
     const contacts = await Contact.findAll({
-      where: {
-        user_id: req.query.userId,
-      },
+      where: query,
     });
     res.status(200).json(contacts);
   } catch (error) {
@@ -59,6 +65,27 @@ exports.delete = async (req, res) => {
       res.status(200).json({ message: 'Contact deleted successfully' });
     } else {
       res.status(404).json({ error: 'Contact not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getLastPosition = async (req, res) => {
+  try {
+    const contacts = await Contact.findAll({
+      where: {
+        user_id: req.query.userId,
+        type: req.query.type,
+      },
+    });
+
+    if (contacts.length > 0) {
+      res
+        .status(200)
+        .json({ position: contacts[contacts.length - 1].position });
+    } else {
+      res.status(200).json({ position: 0 });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });

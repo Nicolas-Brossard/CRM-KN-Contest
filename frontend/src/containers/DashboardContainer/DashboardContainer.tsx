@@ -1,18 +1,35 @@
-import { Sidebar, ContactTypePieChart } from '@/components';
+import { Sidebar, ContactTypePieChart, Board } from '@/components';
 import React, { useState, useEffect } from 'react';
 import { Box, Card, CardContent, IconButton, Typography } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import jwt_decode from 'jwt-decode';
 
-interface Contact {
+export interface Contact {
   id: number;
   type: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string | null;
+  company: string | null;
+  location: string | null;
+  status: string;
+  column: string;
+  position: number;
 }
+
 const DashboardContainer: React.FC = () => {
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [showWidgets, setShowWidgets] = useState(true);
 
+  const handleContactTypeChange = (contactId: number, newType: string) => {
+    setContacts((prevContacts) =>
+      prevContacts.map((contact) =>
+        contact.id === contactId ? { ...contact, type: newType } : contact
+      )
+    );
+  };
   const handleToggleWidgets = () => {
     setShowWidgets(!showWidgets);
   };
@@ -36,7 +53,7 @@ const DashboardContainer: React.FC = () => {
     };
 
     fetchContacts();
-  }, []);
+  }, [contacts]);
 
   const contactTypeData = ['Clients', 'Leads', 'Prospects'].map((type) => ({
     name: type,
@@ -154,8 +171,13 @@ const DashboardContainer: React.FC = () => {
           alignContent: 'center',
           flex: 1,
         }}
-      >
+      ></div>
+      <div>
         <h2 style={{ color: '#2f3c4d' }}>Tableau de bord</h2>
+        <Board
+          contacts={contacts}
+          onContactTypeChange={handleContactTypeChange}
+        />
       </div>
     </div>
   );

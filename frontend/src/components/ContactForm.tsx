@@ -35,10 +35,20 @@ interface ContactFormProps {
   isEditMode?: boolean;
 }
 
-interface ContactFormProps {
-  type: string;
-  closeForm: () => void;
-}
+const getLastContactPosition = async (userId: string, contactType: string) => {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/contact/last-position?user_id=${userId}&type=${contactType}`
+    );
+    if (response.ok) {
+      const data = await response.json();
+      return data.position;
+    }
+  } catch (error) {
+    console.error('Error while fetching the last contact position:', error);
+  }
+  return 0;
+};
 
 const ContactForm: React.FC<ContactFormProps> = ({
   type,
@@ -65,6 +75,16 @@ const ContactForm: React.FC<ContactFormProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!userId) {
+      enqueueSnackbar("L'utilisateur n'est pas connecté.", {
+        variant: 'error',
+      });
+      return;
+    }
+
+    const lastPosition = await getLastContactPosition(userId, type);
+    const newPosition = lastPosition + 1;
+
     const contactData = {
       user_id: userId,
       type,
@@ -75,6 +95,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
       company,
       location,
       status,
+      position: newPosition,
     };
 
     try {
