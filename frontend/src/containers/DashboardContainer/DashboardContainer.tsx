@@ -1,5 +1,5 @@
-import { Sidebar, ContactTypePieChart, Board } from '@/components';
-import React, { useState, useEffect } from 'react';
+import { ContactTypePieChart, Board, TodoListWidget } from '@/components';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Box, Card, CardContent, IconButton, Typography } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
@@ -22,19 +22,54 @@ export interface Contact {
 const DashboardContainer: React.FC = () => {
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [showWidgets, setShowWidgets] = useState(true);
+  const [contactTypeData, setContactTypeData] = useState(
+    ['Clients', 'Leads', 'Prospects'].map((type) => ({
+      name: type,
+      type,
+      value: 0,
+    }))
+  );
 
-  const handleContactTypeChange = (contactId: number, newType: string) => {
+  const updateContactTypeDataFromContacts = (contacts: Contact[]) => {
+    setContactTypeData(
+      ['Clients', 'Leads', 'Prospects'].map((type) => ({
+        name: type,
+        type,
+        value: contacts.filter((contact) => contact.type === type).length,
+      }))
+    );
+  };
+
+  const handleContactTypeChange = async (
+    contactId: number,
+    newType: string
+  ) => {
     setContacts((prevContacts) =>
       prevContacts.map((contact) =>
         contact.id === contactId ? { ...contact, type: newType } : contact
       )
     );
+
+    setContactTypeData((prevData) =>
+      prevData.map((item) => ({
+        ...item,
+        value:
+          item.type === newType
+            ? item.value + 1
+            : item.value -
+              (contacts.find((contact) => contact.id === contactId)?.type ===
+              item.type
+                ? 1
+                : 0),
+      }))
+    );
   };
+
   const handleToggleWidgets = () => {
     setShowWidgets(!showWidgets);
   };
 
-  useEffect(() => {
+  const updateContacts = useCallback(async () => {
     const token = localStorage.getItem('token');
     let userId: string | null = null;
     if (token) {
@@ -42,24 +77,22 @@ const DashboardContainer: React.FC = () => {
       userId = decodedToken.id;
     }
 
-    const fetchContacts = async () => {
-      const response = await fetch(
-        `http://localhost:3000/api/contact?userId=${userId}`
-      );
-      const data = await response.json();
-      console.log(data);
+    const response = await fetch(
+      `http://localhost:3000/api/contact?userId=${userId}`
+    );
+    const data = await response.json();
+    console.log(data);
 
-      setContacts(data);
-    };
+    setContacts(data);
+  }, []);
 
-    fetchContacts();
+  useEffect(() => {
+    updateContacts();
+  }, [updateContacts]);
+
+  useEffect(() => {
+    updateContactTypeDataFromContacts(contacts);
   }, [contacts]);
-
-  const contactTypeData = ['Clients', 'Leads', 'Prospects'].map((type) => ({
-    name: type,
-    type,
-    value: contacts.filter((contact) => contact.type === type).length,
-  }));
 
   return (
     <div

@@ -8,7 +8,7 @@ import { Board } from './Board';
 import { Column } from './Column';
 import { Card } from './Card';
 import { StrictModeDroppable } from './StrictModeDroppable';
-
+import { TodoListWidget } from './TodoListWidget';
 export {
   LoginModal,
   Sidebar,
@@ -20,4 +20,5 @@ export {
   Column,
   Card,
   StrictModeDroppable,
+  TodoListWidget,
 };
