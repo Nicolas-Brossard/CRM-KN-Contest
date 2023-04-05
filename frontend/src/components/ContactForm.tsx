@@ -146,7 +146,15 @@ const ContactForm: React.FC<ContactFormProps> = ({
   };
 
   return (
-    <Dialog open={true} onClose={closeForm}>
+    <Dialog
+      open={true}
+      onClose={closeForm}
+      PaperProps={{
+        style: {
+          overflowX: 'hidden',
+        },
+      }}
+    >
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2} style={{ padding: '1%', margin: '15px' }}>
           <Grid

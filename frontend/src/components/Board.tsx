@@ -4,6 +4,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import { StrictModeDroppable } from './StrictModeDroppable';
 import jwt_decode from 'jwt-decode';
 import { Divider } from '@mui/material';
+import { width } from '@mui/system';
 
 interface ColumnData {
   id: string;
@@ -12,10 +13,14 @@ interface ColumnData {
     title: string;
     email: string;
     phone: string | null;
+    company: string | null;
+    updatedAt: string;
+    contactId: number;
   }[];
 }
 
 interface Contact {
+  updatedAt: any;
   id: number;
   type: string;
   first_name: string;
@@ -71,10 +76,13 @@ function groupContactsByType(contacts: Contact[]): ColumnData[] {
         acc[contact.type] = [];
       }
       acc[contact.type].push({
-        id: `C${contact.id}`,
+        id: contact.id.toString(),
         title: `${contact.first_name} ${contact.last_name}`,
         email: contact.email,
         phone: contact.phone,
+        company: contact.company,
+        updatedAt: contact.updatedAt,
+        contactId: contact.id,
       });
 
       return acc;
@@ -105,6 +113,7 @@ const Board: React.FC<BoardProps> = ({
     if (contacts) {
       const groupedContacts = groupContactsByType(contacts);
       setColumns(groupedContacts);
+      console.log(contacts);
     }
   }, [contacts]);
 
@@ -137,7 +146,7 @@ const Board: React.FC<BoardProps> = ({
         })
       );
 
-      const contactId = parseInt(removed.id.substring(1), 10);
+      const contactId = parseInt(removed.id, 10);
       updateCard(contactId, destination.droppableId, destination.index);
       if (onContactTypeChange) {
         onContactTypeChange(contactId, destination.droppableId);
@@ -163,7 +172,7 @@ const Board: React.FC<BoardProps> = ({
         }
       });
 
-      const contactId = parseInt(removed.id.substring(1), 10);
+      const contactId = parseInt(removed.id, 10); // Retirez .substring(1)
       updateCard(contactId, source.droppableId, destination.index);
       if (onContactTypeChange) {
         onContactTypeChange(contactId, destination.droppableId);
@@ -173,7 +182,13 @@ const Board: React.FC<BoardProps> = ({
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-around',
+          width: '90%',
+        }}
+      >
         {desiredColumns.map((desiredColumn) => {
           const column = columns.find(
             (column) => column.id === desiredColumn.id
@@ -191,10 +206,11 @@ const Board: React.FC<BoardProps> = ({
                   style={{
                     width: '30%',
                     padding: '10px',
-                    backgroundColor: '#f0f0f0',
+                    borderRadius: '5px',
+                    backgroundColor: '#7b7f8530',
                   }}
                 >
-                  <h3>{desiredColumn.label}</h3>
+                  <h3 style={{ color: '#fff' }}>{desiredColumn.label}</h3>
                   <Column
                     key={desiredColumn.id}
                     id={desiredColumn.id}

@@ -7,20 +7,31 @@ interface CardProps {
   title: string;
   email: string;
   phone: string | null;
+  company: string | null;
+  updatedAt: string;
+  contactId: number;
 }
-
+interface Contact {
+  updatedAt: any;
+  id: number;
+  type: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string | null;
+  company: string | null;
+  location: string | null;
+  status: string;
+  column: string;
+  position: number;
+}
 interface ColumnProps {
   id: string;
   title: string;
   cards: CardProps[];
   onContactTypeChange?: (contactId: number, newType: string) => void;
 }
-const Column: React.FC<ColumnProps> = ({
-  id,
-  title,
-  cards,
-  onContactTypeChange,
-}) => {
+const Column: React.FC<ColumnProps> = ({ cards }) => {
   return (
     <>
       {cards.map((card, index) => (
@@ -32,11 +43,14 @@ const Column: React.FC<ColumnProps> = ({
               {...provided.dragHandleProps}
             >
               <Card
+                contactId={parseInt(card.id)}
                 key={card.id}
                 id={card.id}
                 title={card.title}
                 email={card.email}
                 phone={card.phone}
+                company={card.company}
+                updatedAt={card.updatedAt}
               />
             </div>
           )}

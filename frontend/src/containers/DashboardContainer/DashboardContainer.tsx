@@ -17,6 +17,7 @@ export interface Contact {
   status: string;
   column: string;
   position: number;
+  updatedAt: string;
 }
 
 const DashboardContainer: React.FC = () => {
@@ -29,6 +30,14 @@ const DashboardContainer: React.FC = () => {
       value: 0,
     }))
   );
+
+  const handleColumnChange = (contactId: number, newColumn: string) => {
+    setContacts((prevContacts) =>
+      prevContacts.map((contact) =>
+        contact.id === contactId ? { ...contact, column: newColumn } : contact
+      )
+    );
+  };
 
   const updateContactTypeDataFromContacts = (contacts: Contact[]) => {
     setContactTypeData(
@@ -143,6 +152,7 @@ const DashboardContainer: React.FC = () => {
                   minWidth: 300,
                   maxWidth: '100%',
                   padding: 0,
+                  margin: '0% 0.5% 0% 0.5%',
                 }}
               >
                 <CardContent
@@ -159,18 +169,76 @@ const DashboardContainer: React.FC = () => {
                   <ContactTypePieChart data={contactTypeData} />
                 </CardContent>
               </Card>
-              <Card sx={{ m: 1, minWidth: 200, padding: 0 }}>
+              <Card
+                sx={{
+                  s: 1,
+                  minWidth: 300,
+                  maxWidth: '100%',
+                  padding: 0,
+                  margin: '0% 0.5% 0% 0.5%',
+                }}
+              >
                 <CardContent
                   sx={{
-                    margin: 0,
+                    marginBottom: 0,
                     padding: 0,
-                    paddingBottom: 0,
+                    border: '1px solid #fff',
+                    borderRadius: 5,
                     '&:last-child': {
                       paddingBottom: 0,
                     },
                   }}
                 >
-                  <Typography sx={{ margin: 0 }}>Widget 2</Typography>
+                  {' '}
+                  <ContactTypePieChart data={contactTypeData} />
+                </CardContent>
+              </Card>
+              <Card
+                sx={{
+                  s: 1,
+                  minWidth: 300,
+                  maxWidth: '100%',
+                  padding: 0,
+                  margin: '0% 0.5% 0% 0.5%',
+                }}
+              >
+                <CardContent
+                  sx={{
+                    marginBottom: 0,
+                    padding: 0,
+                    border: '1px solid #fff',
+                    borderRadius: 5,
+                    '&:last-child': {
+                      paddingBottom: 0,
+                    },
+                  }}
+                >
+                  {' '}
+                  <ContactTypePieChart data={contactTypeData} />
+                </CardContent>
+              </Card>
+              <Card
+                sx={{
+                  s: 1,
+                  minWidth: 300,
+                  maxWidth: '100%',
+                  padding: 0,
+                  margin: '0% 0.5% 0% 0.5%',
+                }}
+              >
+                <CardContent
+                  sx={{
+                    marginBottom: 0,
+                    padding: 0,
+                    border: '1px solid #fff',
+                    borderRadius: 5,
+                    '&:last-child': {
+                      paddingBottom: 0,
+                    },
+                  }}
+                >
+                  {' '}
+                  <ContactTypePieChart data={contactTypeData} />
                 </CardContent>
               </Card>
             </Box>
@@ -207,10 +275,14 @@ const DashboardContainer: React.FC = () => {
       ></div>
       <div>
         <h2 style={{ color: '#2f3c4d' }}>Tableau de bord</h2>
-        <Board
-          contacts={contacts}
-          onContactTypeChange={handleContactTypeChange}
-        />
+        <div style={{ display: 'flex', flexDirection: 'row', margin: '5%' }}>
+          <Board
+            contacts={contacts}
+            onContactTypeChange={handleContactTypeChange}
+            onColumnChange={handleColumnChange}
+          />
+          <TodoListWidget />
+        </div>
       </div>
     </div>
   );

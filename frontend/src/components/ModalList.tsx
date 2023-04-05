@@ -10,7 +10,6 @@ import {
   ListItemText,
   Typography,
   Box,
-  Divider,
 } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
@@ -155,12 +154,15 @@ const ModalList: React.FC<ModalListProps> = ({ data, type, refresh }) => {
                           </Typography>
                         </Box>
                       )}
-                      <Divider />
                     </Box>
                   }
                 />
                 <ListItemSecondaryAction>
-                  <Box display="flex" flexDirection="column">
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    sx={{ height: '80%' }}
+                  >
                     <Button
                       variant="outlined"
                       style={{

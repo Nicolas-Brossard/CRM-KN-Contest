@@ -13,6 +13,19 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import LeadsIcon from '@mui/icons-material/Assignment';
 import ProspectsIcon from '@mui/icons-material/People';
 import ClientsIcon from '@mui/icons-material/AccountBox';
+import jwt_decode from 'jwt-decode';
+
+const isAdmin = () => {
+  const token = localStorage.getItem('token');
+  if (!token) return false;
+
+  try {
+    const decodedToken: any = jwt_decode(token);
+    return decodedToken.is_admin;
+  } catch (error) {
+    return false;
+  }
+};
 
 const Sidebar: React.FC = () => {
   const menuItems = [
@@ -79,6 +92,23 @@ const Sidebar: React.FC = () => {
           </ListItem>
         ))}
         <Divider />
+        {isAdmin() && (
+          <>
+            <List>
+              <ListItem>
+                <ListItemText
+                  primary="Gestion Administrateur"
+                  style={{
+                    color: '#2F3C4D',
+                    font: 'open-san',
+                    fontWeight: 'lighter',
+                    marginLeft: '15px',
+                  }}
+                />
+              </ListItem>
+            </List>
+          </>
+        )}
       </List>
     </Drawer>
   );

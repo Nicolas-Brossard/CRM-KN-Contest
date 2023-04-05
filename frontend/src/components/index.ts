@@ -9,6 +9,8 @@ import { Column } from './Column';
 import { Card } from './Card';
 import { StrictModeDroppable } from './StrictModeDroppable';
 import { TodoListWidget } from './TodoListWidget';
+import { AddTodoModal } from './AddTodoModal';
+
 export {
   LoginModal,
   Sidebar,
@@ -21,4 +23,5 @@ export {
   Card,
   StrictModeDroppable,
   TodoListWidget,
+  AddTodoModal,
 };

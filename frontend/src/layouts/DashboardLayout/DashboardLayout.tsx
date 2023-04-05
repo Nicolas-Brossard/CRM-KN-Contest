@@ -16,7 +16,7 @@ const DashboardLayout: React.FC = () => {
           width: '100%',
         }}
       >
-        <h1 style={{ fontSize: '2.2em', color: '#2f3c4d' }}>Votre Dashboard</h1>
+        {/* <h1 style={{ fontSize: '2.2em', color: '#2f3c4d' }}>Votre Dashboard</h1> */}
         <DashboardContainer />
       </div>
     </div>
