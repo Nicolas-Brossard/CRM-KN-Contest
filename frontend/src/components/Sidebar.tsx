@@ -79,9 +79,6 @@ const Sidebar: React.FC = () => {
       'phone',
       'company',
       'location',
-      'status',
-      'column',
-      'position',
       'updatedAt',
     ];
 

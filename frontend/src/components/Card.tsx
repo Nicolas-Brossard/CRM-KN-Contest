@@ -132,7 +132,18 @@ const Card: React.FC<CardProps> = ({
           justifyContent: 'flex-end',
         }}
       >
-        <IconButton onClick={handleActionIconClick}>
+        <IconButton
+          onClick={handleActionIconClick}
+          sx={{
+            '&:hover': {
+              backgroundColor: 'transparent',
+            },
+            '&:active': {
+              backgroundColor: 'transparent',
+              outline: 'none',
+            },
+          }}
+        >
           <Add fontSize="small" />
         </IconButton>
         <IconButton>

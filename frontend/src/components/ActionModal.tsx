@@ -100,107 +100,121 @@ const ActionModal: React.FC<ActionModalProps> = ({
   };
 
   return (
-    <Dialog
-      onClose={onClose}
-      open={open}
-      PaperProps={{
-        style: {
-          overflowX: 'hidden',
-        },
-      }}
-    >
-      <DialogTitle>Actions pour {contactName}</DialogTitle>
-      <List
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
+    <div style={{ backgroundColor: '#2f3c4c', borderRadius: 5 }}>
+      <Dialog
+        onClose={onClose}
+        open={open}
+        PaperProps={{
+          style: {
+            overflowX: 'hidden',
+          },
         }}
       >
-        {actions.map((action) => (
-          <>
-            <ListItem
-              key={action.id}
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                backgroundColor: '#d3d2d234',
-                width: '90%',
-                justifyContent: 'flex-start',
-                alignItems: 'flex-start',
-              }}
-            >
-              <ListItemText
-                primary={action.type}
-                secondary={action.description}
-              />
-            </ListItem>
-            <Divider />
-          </>
-        ))}
-      </List>
-      <form onSubmit={handleSave}>
-        <Grid container spacing={2} style={{ padding: '1%', margin: '15px' }}>
-          <Grid item xs={12}>
-            <Box display="flex" alignItems="center">
-              <TextField
-                label="Type"
-                value={newAction.type}
-                onChange={(e) =>
-                  setNewAction({ ...newAction, type: e.target.value })
-                }
-              />
-            </Box>
-          </Grid>
-          <Grid item xs={12}>
-            <Box display="flex" alignItems="center">
-              <TextField
-                label="Description"
-                value={newAction.description}
-                onChange={(e) =>
-                  setNewAction({ ...newAction, description: e.target.value })
-                }
-              />
-            </Box>
-          </Grid>
-          <Grid item xs={12}>
-            <Box display="flex" alignItems="center">
-              <TextField
-                label="Date"
-                type="date"
-                value={newAction.date}
-                onChange={(e) =>
-                  setNewAction({ ...newAction, date: e.target.value })
-                }
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-            </Box>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            display="flex"
-            alignContent="center"
-            justifyContent="center"
+        <div>
+          <DialogTitle
+            sx={{
+              backgroundColor: '#303c4c',
+              textAlign: 'center',
+              color: '#fff',
+            }}
           >
-            <Button
-              type="submit"
-              style={{
-                marginLeft: 'auto',
-                marginRight: 'auto',
-                backgroundColor: '#EDC88C',
-                color: 'white',
-              }}
+            Actions pour {contactName}
+          </DialogTitle>
+        </div>
+
+        <List
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          {actions.map((action) => (
+            <>
+              <ListItem
+                key={action.id}
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  backgroundColor: '#d3d2d234',
+                  width: '90%',
+                  justifyContent: 'flex-start',
+                  alignItems: 'flex-start',
+                }}
+              >
+                <ListItemText
+                  primary={action.type}
+                  secondary={action.description}
+                />
+              </ListItem>
+              <Divider />
+            </>
+          ))}
+        </List>
+
+        <form onSubmit={handleSave}>
+          <Grid container spacing={2} style={{ padding: '1%', margin: '15px' }}>
+            <Grid item xs={12}>
+              <Box display="flex" alignItems="center">
+                <TextField
+                  label="Type"
+                  value={newAction.type}
+                  onChange={(e) =>
+                    setNewAction({ ...newAction, type: e.target.value })
+                  }
+                />
+              </Box>
+            </Grid>
+            <Grid item xs={12}>
+              <Box display="flex" alignItems="center">
+                <TextField
+                  label="Description"
+                  value={newAction.description}
+                  onChange={(e) =>
+                    setNewAction({ ...newAction, description: e.target.value })
+                  }
+                />
+              </Box>
+            </Grid>
+            <Grid item xs={12}>
+              <Box display="flex" alignItems="center">
+                <TextField
+                  label="Date"
+                  type="date"
+                  value={newAction.date}
+                  onChange={(e) =>
+                    setNewAction({ ...newAction, date: e.target.value })
+                  }
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </Box>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              display="flex"
+              alignContent="center"
+              justifyContent="center"
             >
-              Enregistrer
-            </Button>
+              <Button
+                type="submit"
+                style={{
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                  backgroundColor: '#EDC88C',
+                  color: 'white',
+                }}
+              >
+                Enregistrer
+              </Button>
+            </Grid>
           </Grid>
-        </Grid>
-      </form>
-    </Dialog>
+        </form>
+      </Dialog>
+    </div>
   );
 };
 

@@ -104,7 +104,7 @@ export const AddTodoModal: React.FC<AddTodoModalProps> = ({
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Ajouter une nouvelle todo</DialogTitle>
+      <DialogTitle>Ajouter un nouveau rappel</DialogTitle>
       <DialogContent>
         <TextField
           autoFocus
