@@ -62,7 +62,7 @@ Décrivez les étapes pour installer et configurer votre projet sur l'ordinateur
 - [x] Listing et gestion des leads
 - [x] Listing et gestion des prospects
 - [x] Listing et gestion des clients
-- [x]Gestion automatique des statuts (lead, lead mort, prospect, prospect mort, client)
+- [x] Gestion automatique des statuts (lead, lead mort, prospect, prospect mort, client)
 - [x] Différenciation des contacts B2B et B2C
       Gestion des actions :
 - [x] Ajout manuel d'actions pour les contacts (appels téléphoniques, mails, etc.)
