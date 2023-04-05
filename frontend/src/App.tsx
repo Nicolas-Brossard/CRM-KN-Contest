@@ -9,6 +9,7 @@ import {
 } from '@/layouts';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
+import { UsersLayout } from './layouts/UsersLayout/UsersLayout';
 
 const App: React.FC = () => {
   const title = 'CRM - NK';
@@ -42,6 +43,10 @@ const App: React.FC = () => {
           <Route
             path="/liste-clients"
             element={<AuthenticatedLayout component={CustomersLayout} />}
+          />
+          <Route
+            path="/gestion-utilisateurs"
+            element={<AuthenticatedLayout component={UsersLayout} />}
           />
         </Routes>
       </SnackbarProvider>

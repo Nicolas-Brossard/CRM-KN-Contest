@@ -12,8 +12,8 @@ import { TodoListWidget } from './TodoListWidget';
 import { AddTodoModal } from './AddTodoModal';
 import { CustomerAcquisitionBarChart } from './CustomerAcquisitionBarChart';
 import { ConversionRateWidget } from './ConversionRateWidget';
-
 import { B2bB2cPercentageChart } from './B2bB2cPercentageChart';
+import { ModalUsersList } from './ModalUsersList';
 
 export {
   LoginModal,
@@ -31,4 +31,5 @@ export {
   CustomerAcquisitionBarChart,
   B2bB2cPercentageChart,
   ConversionRateWidget,
+  ModalUsersList,
 };

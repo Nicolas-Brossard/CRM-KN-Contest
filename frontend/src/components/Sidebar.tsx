@@ -181,9 +181,26 @@ const Sidebar: React.FC = () => {
             <List>
               <ListItem>
                 <ListItemText
-                  primary="Gestion Administrateur"
+                  primary="Administration"
                   style={{
                     color: '#2F3C4D',
+                    font: 'open-san',
+                    fontWeight: 'lighter',
+                    textAlign: 'center',
+                  }}
+                />
+              </ListItem>
+              <Divider />
+              <ListItem component={Link} to="/gestion-utilisateurs">
+                <LeadsIcon
+                  style={{
+                    color: '#757575',
+                  }}
+                />
+                <ListItemText
+                  primary="Gestion Utilisateurs"
+                  style={{
+                    color: '#757575',
                     font: 'open-san',
                     fontWeight: 'lighter',
                     marginLeft: '15px',
