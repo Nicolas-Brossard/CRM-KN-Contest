@@ -114,7 +114,9 @@ const UserForm: React.FC<UserFormProps> = ({
             justifyContent="center"
           >
             <Typography variant="h6">
-              {isEditMode ? 'Modifier utilisateur' : 'Ajouter utilisateur'}
+              {isEditMode
+                ? 'Modifier un utilisateur'
+                : 'Ajouter un utilisateur'}
             </Typography>
           </Grid>
           <Grid item xs={12}>
