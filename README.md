@@ -75,7 +75,7 @@ Décrivez les étapes pour installer et configurer votre projet sur l'ordinateur
 - [x] Gestion des comptes utilisateurs (accessible uniquement par le compte administrateur).
 - [x] Export et import des contacts au format .csv
 
-Listez les principales technologies, bibliothèques et frameworks utilisés dans votre projet :
+Principales technologies, bibliothèques et frameworks utilisés dans votre projet :
 
 - [Docker](https://www.docker.com/)
 - [Vite](https://vitejs.dev/)
