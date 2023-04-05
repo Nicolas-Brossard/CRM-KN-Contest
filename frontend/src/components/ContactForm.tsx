@@ -38,7 +38,7 @@ interface ContactFormProps {
 const getLastContactPosition = async (userId: string, contactType: string) => {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/contact/last-position?user_id=${userId}&type=${contactType}`
+      `http://localhost:3000/api/contact/last_position?userId=${userId}&type=${contactType}`
     );
     if (response.ok) {
       const data = await response.json();
@@ -146,7 +146,15 @@ const ContactForm: React.FC<ContactFormProps> = ({
   };
 
   return (
-    <Dialog open={true} onClose={closeForm}>
+    <Dialog
+      open={true}
+      onClose={closeForm}
+      PaperProps={{
+        style: {
+          overflowX: 'hidden',
+        },
+      }}
+    >
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2} style={{ padding: '1%', margin: '15px' }}>
           <Grid

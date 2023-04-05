@@ -12,33 +12,27 @@ import {
   Box,
 } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
-import PhoneIcon from '@mui/icons-material/Phone';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import BusinessIcon from '@mui/icons-material/Business';
-import { ContactForm } from './ContactForm';
+
+import { UserForm } from './UserForm';
 import { useSnackbar } from 'notistack';
 import './ModalList.css';
 
-interface Contact {
+interface User {
   id: number;
-  type: string;
-  first_name: string;
-  last_name: string;
+  username: string;
   email: string;
-  phone: string | null;
-  company: string | null;
-  location: string | null;
-  status: string;
+  password: string;
+  is_admin: boolean;
 }
 interface ModalListProps {
-  data: Contact[];
+  data: User[];
   type: string;
   refresh: () => void;
 }
 
-const ModalList: React.FC<ModalListProps> = ({ data, type, refresh }) => {
+const ModalUsersList: React.FC<ModalListProps> = ({ data, type, refresh }) => {
   const [showForm, setShowForm] = useState(false);
-  const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -47,13 +41,13 @@ const ModalList: React.FC<ModalListProps> = ({ data, type, refresh }) => {
   };
   const handleCloseForm = () => {
     setShowForm(false);
-    setSelectedContact(null);
+    setSelectedUser(null);
     refresh();
   };
 
   const handleDelete = async (id: number) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/contact/${id}`, {
+      const response = await fetch(`http://localhost:3000/api/users/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -80,7 +74,7 @@ const ModalList: React.FC<ModalListProps> = ({ data, type, refresh }) => {
   const handleUpdate = (id: number) => {
     const contactToEdit = data.find((contact) => contact.id === id);
     if (contactToEdit) {
-      setSelectedContact(contactToEdit);
+      setSelectedUser(contactToEdit);
       setShowForm(true);
     }
   };
@@ -102,11 +96,10 @@ const ModalList: React.FC<ModalListProps> = ({ data, type, refresh }) => {
         }}
       >
         {showForm && (
-          <ContactForm
-            type={type}
+          <UserForm
             closeForm={handleCloseForm}
-            contact={selectedContact}
-            isEditMode={!!selectedContact}
+            user={selectedUser}
+            isEditMode={!!selectedUser}
           />
         )}
         {data.length === 0 ? (
@@ -115,42 +108,18 @@ const ModalList: React.FC<ModalListProps> = ({ data, type, refresh }) => {
           </Typography>
         ) : (
           <List>
-            {data.map((contact) => (
-              <ListItem key={contact.id} sx={{ display: 'flex' }}>
+            {data.map((user) => (
+              <ListItem key={user.id} sx={{ display: 'flex' }}>
                 <ListItemText
-                  primary={`${contact.first_name} ${contact.last_name}`}
+                  primary={`${user.username}`}
                   sx={{ marginBottom: '50px' }}
                   secondary={
                     <Box>
-                      {contact.email && (
+                      {user.email && (
                         <Box display="flex" alignItems="center" mb={0.5}>
                           <EmailIcon fontSize="small" />
                           <Typography variant="body2" ml={1}>
-                            {contact.email}
-                          </Typography>
-                        </Box>
-                      )}
-                      {contact.phone && (
-                        <Box display="flex" alignItems="center" mb={0.5}>
-                          <PhoneIcon fontSize="small" />
-                          <Typography variant="body2" ml={1}>
-                            {contact.phone}
-                          </Typography>
-                        </Box>
-                      )}
-                      {contact.company && (
-                        <Box display="flex" alignItems="center" mb={0.5}>
-                          <BusinessIcon fontSize="small" />
-                          <Typography variant="body2" ml={1}>
-                            {contact.company}
-                          </Typography>
-                        </Box>
-                      )}
-                      {contact.location && (
-                        <Box display="flex" alignItems="center">
-                          <LocationOnIcon fontSize="small" />
-                          <Typography variant="body2" ml={1}>
-                            {contact.location}
+                            {user.email}
                           </Typography>
                         </Box>
                       )}
@@ -166,7 +135,7 @@ const ModalList: React.FC<ModalListProps> = ({ data, type, refresh }) => {
                     <Button
                       variant="outlined"
                       color="primary"
-                      onClick={() => handleUpdate(contact.id)}
+                      onClick={() => handleUpdate(user.id)}
                       sx={{
                         '&:focus': {
                           outline: 'transparent',
@@ -184,7 +153,7 @@ const ModalList: React.FC<ModalListProps> = ({ data, type, refresh }) => {
                         color: 'red',
                         borderColor: 'red',
                       }}
-                      onClick={() => handleDelete(contact.id)}
+                      onClick={() => handleDelete(user.id)}
                       sx={{
                         '&:hover': {
                           backgroundColor: 'rgba(255, 0, 0, 0.1)',
@@ -230,4 +199,4 @@ const ModalList: React.FC<ModalListProps> = ({ data, type, refresh }) => {
   );
 };
 
-export { ModalList };
+export { ModalUsersList };

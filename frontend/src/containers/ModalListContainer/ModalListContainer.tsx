@@ -49,7 +49,6 @@ const ModalListContainer: React.FC<ModalListContainerProps> = ({ type }) => {
       style={{
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
       }}

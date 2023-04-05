@@ -2,7 +2,14 @@ const { Action } = require('../models');
 
 exports.getAll = async (req, res) => {
   try {
-    const actions = await Action.findAll();
+    const query = {
+      contact_id: req.query.contactId,
+    };
+
+    const actions = await Action.findAll({
+      where: query,
+    });
+
     res.status(200).json(actions);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -48,7 +55,9 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
   try {
-    const deletedAction = await Action.destroy({ where: { id: req.params.id } });
+    const deletedAction = await Action.destroy({
+      where: { id: req.params.id },
+    });
     if (deletedAction === 1) {
       res.status(200).json({ message: 'Action deleted successfully' });
     } else {

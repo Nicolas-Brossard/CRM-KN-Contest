@@ -51,7 +51,7 @@ const ContactTypePieChart: React.FC<ContactTypePieChartProps> = ({ data }) => {
     <div style={{ backgroundColor: '#2f3c4c', borderRadius: 5 }}>
       <div>
         <Typography variant="h6" align="center" sx={{ color: '#fff' }}>
-          Répartition des clients
+          Répartition des contacts
         </Typography>
       </div>
       <Grid item xs={12} md={6} style={{ backgroundColor: '#fff' }}>

@@ -21,6 +21,11 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ['@mui/material', 'react-router-dom', 'react-router'],
+    include: [
+      '@mui/material',
+      'react-router-dom',
+      'react-router',
+      '@mui/icons-material',
+    ],
   },
 });

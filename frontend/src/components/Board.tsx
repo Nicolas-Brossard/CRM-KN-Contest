@@ -3,6 +3,8 @@ import { Column } from './Column';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { StrictModeDroppable } from './StrictModeDroppable';
 import jwt_decode from 'jwt-decode';
+import { Divider } from '@mui/material';
+import { width } from '@mui/system';
 
 interface ColumnData {
   id: string;
@@ -11,10 +13,14 @@ interface ColumnData {
     title: string;
     email: string;
     phone: string | null;
+    company: string | null;
+    updatedAt: string;
+    contactId: number;
   }[];
 }
 
 interface Contact {
+  updatedAt: any;
   id: number;
   type: string;
   first_name: string;
@@ -30,10 +36,15 @@ interface Contact {
 
 interface BoardProps {
   contacts: Contact[];
-  onContactTypeChange?: (contactId: number, newType: string) => void;
+  onContactTypeChange: (contactId: number, newType: string) => void;
+  onColumnChange: (contactId: number, newColumn: string) => void; // Ajoutez cette ligne
 }
 
-async function updateCard(contactId: number, newType: string) {
+async function updateCard(
+  contactId: number,
+  newType: string,
+  newPosition: number
+) {
   try {
     const response = await fetch(
       `http://localhost:3000/api/contact/${contactId}`,
@@ -42,7 +53,7 @@ async function updateCard(contactId: number, newType: string) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ type: newType }),
+        body: JSON.stringify({ type: newType, position: newPosition }),
       }
     );
 
@@ -56,14 +67,6 @@ async function updateCard(contactId: number, newType: string) {
   }
 }
 
-async function fetchContacts(userId: string) {
-  const response = await fetch(
-    `http://localhost:3000/api/contact?userId=${userId}`
-  );
-  const contacts = await response.json();
-  return contacts;
-}
-
 function groupContactsByType(contacts: Contact[]): ColumnData[] {
   const desiredColumnIds = ['Leads', 'Prospects', 'Clients'];
 
@@ -73,10 +76,13 @@ function groupContactsByType(contacts: Contact[]): ColumnData[] {
         acc[contact.type] = [];
       }
       acc[contact.type].push({
-        id: `C${contact.id}`,
+        id: contact.id.toString(),
         title: `${contact.first_name} ${contact.last_name}`,
         email: contact.email,
         phone: contact.phone,
+        company: contact.company,
+        updatedAt: contact.updatedAt,
+        contactId: contact.id,
       });
 
       return acc;
@@ -90,7 +96,11 @@ function groupContactsByType(contacts: Contact[]): ColumnData[] {
   }));
 }
 
-const Board: React.FC<BoardProps> = ({ contacts, onContactTypeChange }) => {
+const Board: React.FC<BoardProps> = ({
+  contacts,
+  onContactTypeChange,
+  onColumnChange,
+}) => {
   const desiredColumns = [
     { id: 'Leads', label: 'Leads' },
     { id: 'Prospects', label: 'Prospects' },
@@ -98,20 +108,14 @@ const Board: React.FC<BoardProps> = ({ contacts, onContactTypeChange }) => {
   ];
 
   const [columns, setColumns] = useState<ColumnData[]>([]);
-  const prevColumnsRef = useRef<ColumnData[]>();
 
   useEffect(() => {
     if (contacts) {
       const groupedContacts = groupContactsByType(contacts);
-      if (
-        !prevColumnsRef.current ||
-        JSON.stringify(prevColumnsRef.current) !==
-          JSON.stringify(groupedContacts)
-      ) {
-        setColumns(groupedContacts);
-      }
+      setColumns(groupedContacts);
+      console.log(contacts);
     }
-  }, [contacts, columns]);
+  }, [contacts]);
 
   const onDragEnd = (result: any) => {
     if (!result.destination) return;
@@ -142,8 +146,12 @@ const Board: React.FC<BoardProps> = ({ contacts, onContactTypeChange }) => {
         })
       );
 
-      const contactId = parseInt(removed.id.substring(1), 10);
-      updateCard(contactId, destination.droppableId);
+      const contactId = parseInt(removed.id, 10);
+      updateCard(contactId, destination.droppableId, destination.index);
+      if (onContactTypeChange) {
+        onContactTypeChange(contactId, destination.droppableId);
+        onColumnChange(contactId, destination.droppableId);
+      }
     } else {
       const columnItems = Array.from(columns[sourceColumnIndex].items);
       const [removed] = columnItems.splice(source.index, 1);
@@ -156,12 +164,31 @@ const Board: React.FC<BoardProps> = ({ contacts, onContactTypeChange }) => {
           return column;
         })
       );
+
+      columnItems.forEach((item, index) => {
+        const contactId = parseInt(item.id.substring(1), 10);
+        if (index !== source.index && index !== destination.index) {
+          updateCard(contactId, source.droppableId, index);
+        }
+      });
+
+      const contactId = parseInt(removed.id, 10);
+      updateCard(contactId, source.droppableId, destination.index);
+      if (onContactTypeChange) {
+        onContactTypeChange(contactId, destination.droppableId);
+      }
     }
   };
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-around',
+          width: '90%',
+        }}
+      >
         {desiredColumns.map((desiredColumn) => {
           const column = columns.find(
             (column) => column.id === desiredColumn.id
@@ -174,23 +201,34 @@ const Board: React.FC<BoardProps> = ({ contacts, onContactTypeChange }) => {
             >
               {(provided) => (
                 <div
-                  ref={provided.innerRef}
-                  {...provided.droppableProps}
                   style={{
-                    width: '30%',
-                    padding: '10px',
-                    backgroundColor: '#f0f0f0',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    minWidth: '30%',
+                    backgroundColor: '#303c4c',
+                    borderRadius: 5,
                   }}
                 >
-                  <h3>{desiredColumn.label}</h3>
-                  <Column
-                    key={desiredColumn.id}
-                    id={desiredColumn.id}
-                    title={desiredColumn.label}
-                    cards={column ? column.items : []}
-                    onContactTypeChange={onContactTypeChange}
-                  />
-                  {provided.placeholder}
+                  <h3 style={{ color: '#fff' }}>{desiredColumn.label}</h3>
+                  <div
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}
+                    style={{
+                      backgroundColor: '#f0eaea',
+                      padding: '10px',
+                      height: '100%',
+                    }}
+                  >
+                    <Column
+                      key={desiredColumn.id}
+                      id={desiredColumn.id}
+                      title={desiredColumn.label}
+                      cards={column ? column.items : []}
+                      onContactTypeChange={onContactTypeChange}
+                    />
+                    <Divider orientation="vertical" flexItem />
+                    {provided.placeholder}
+                  </div>
                 </div>
               )}
             </StrictModeDroppable>
