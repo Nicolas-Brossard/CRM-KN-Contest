@@ -101,7 +101,7 @@ export const TodoListWidget: React.FC = () => {
       <List sx={{ backgroundColor: '#fff', height: '100%' }}>
         {todos.length === 0 ? (
           <Typography align="center" sx={{ color: '#2f3c4c', padding: '20px' }}>
-            Créez votre premièr rappel
+            Créez votre premier rappel
           </Typography>
         ) : (
           todos.map((todo) => (
