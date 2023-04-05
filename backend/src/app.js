@@ -9,6 +9,7 @@ const contactRoute = require('./routes/contact');
 const authRoutes = require('./routes/auth');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../swagger.json');
+const { User, Contact } = require('./models');
 
 const app = express();
 app.use(bodyParser.json());
