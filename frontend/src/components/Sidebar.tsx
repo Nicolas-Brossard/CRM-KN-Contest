@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { LogoKN } from '@/components/LogoKN';
 import {
@@ -8,12 +8,12 @@ import {
   ListItemText,
   ListItemIcon,
   Divider,
-  Button,
 } from '@mui/material';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LeadsIcon from '@mui/icons-material/Assignment';
 import ProspectsIcon from '@mui/icons-material/People';
 import ClientsIcon from '@mui/icons-material/AccountBox';
+import GetAppIcon from '@mui/icons-material/GetApp';
 import jwt_decode from 'jwt-decode';
 interface Contact {
   updatedAt: any;
@@ -157,21 +157,23 @@ const Sidebar: React.FC = () => {
             />
           </ListItem>
         ))}
-        <ListItem>
-          <Button
-            onClick={exportContactsToCSV}
-            fullWidth
-            variant="outlined"
+        <ListItem button onClick={exportContactsToCSV}>
+          <ListItemIcon
             sx={{
-              color: '#2F3C4D',
-              borderColor: '#2F3C4D',
-              fontWeight: 'lighter',
-              textTransform: 'none',
-              mt: 2,
+              minWidth: '35px',
+              marginLeft: '5px',
             }}
           >
-            Exporter en CSV
-          </Button>
+            <GetAppIcon />
+          </ListItemIcon>
+          <ListItemText
+            primary="Exporter en CSV"
+            style={{
+              color: '#2F3C4D',
+              font: 'open-san',
+              fontWeight: 'lighter',
+            }}
+          />
         </ListItem>
         <Divider />
         {isAdmin() && (

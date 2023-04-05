@@ -1,5 +1,6 @@
 import React from 'react';
 import { Typography, Grid, Box } from '@mui/material';
+import CountUp from 'react-countup';
 
 export interface Contact {
   id: number;
@@ -22,8 +23,6 @@ interface B2bB2cPercentageChartProps {
 const B2bB2cPercentageChart: React.FC<B2bB2cPercentageChartProps> = ({
   contacts,
 }) => {
-  console.log(contacts);
-
   const b2bContacts = contacts.filter(
     (contact) => contact.company !== null && contact.company !== ''
   );
@@ -61,16 +60,32 @@ const B2bB2cPercentageChart: React.FC<B2bB2cPercentageChartProps> = ({
           sx={{ height: '100%', minHeight: '100%', maxHeight: '100%' }}
         >
           <Box textAlign="center">
-            <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
-              {b2bPercentage.toFixed(0)}%
+            <Typography variant="h3" sx={{ color: '#2f3c4c' }}>
+              <CountUp
+                start={0}
+                end={b2bPercentage}
+                decimals={0}
+                duration={1}
+              />
+              %
             </Typography>
-            <Typography sx={{ fontWeight: 'bold' }}>B2B</Typography>
+            <Typography sx={{ fontWeight: 'bold', color: '#2f3c4c' }}>
+              B2B
+            </Typography>
           </Box>
           <Box textAlign="center">
-            <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
-              {b2cPercentage.toFixed(0)}%
+            <Typography variant="h3" sx={{ color: '#2f3c4c' }}>
+              <CountUp
+                start={0}
+                end={b2cPercentage}
+                decimals={0}
+                duration={1}
+              />
+              %
             </Typography>
-            <Typography sx={{ fontWeight: 'bold' }}>B2C</Typography>
+            <Typography sx={{ fontWeight: 'bold', color: '#2f3c4c' }}>
+              B2C
+            </Typography>
           </Box>
         </Box>
       </Grid>

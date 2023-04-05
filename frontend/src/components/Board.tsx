@@ -172,7 +172,7 @@ const Board: React.FC<BoardProps> = ({
         }
       });
 
-      const contactId = parseInt(removed.id, 10); // Retirez .substring(1)
+      const contactId = parseInt(removed.id, 10);
       updateCard(contactId, source.droppableId, destination.index);
       if (onContactTypeChange) {
         onContactTypeChange(contactId, destination.droppableId);
@@ -201,25 +201,34 @@ const Board: React.FC<BoardProps> = ({
             >
               {(provided) => (
                 <div
-                  ref={provided.innerRef}
-                  {...provided.droppableProps}
                   style={{
-                    width: '30%',
-                    padding: '10px',
-                    borderRadius: '5px',
-                    backgroundColor: '#7b7f8530',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    minWidth: '30%',
+                    backgroundColor: '#303c4c',
+                    borderRadius: 5,
                   }}
                 >
                   <h3 style={{ color: '#fff' }}>{desiredColumn.label}</h3>
-                  <Column
-                    key={desiredColumn.id}
-                    id={desiredColumn.id}
-                    title={desiredColumn.label}
-                    cards={column ? column.items : []}
-                    onContactTypeChange={onContactTypeChange}
-                  />
-                  <Divider orientation="vertical" flexItem />
-                  {provided.placeholder}
+                  <div
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}
+                    style={{
+                      backgroundColor: '#f0eaea',
+                      padding: '10px',
+                      height: '100%',
+                    }}
+                  >
+                    <Column
+                      key={desiredColumn.id}
+                      id={desiredColumn.id}
+                      title={desiredColumn.label}
+                      cards={column ? column.items : []}
+                      onContactTypeChange={onContactTypeChange}
+                    />
+                    <Divider orientation="vertical" flexItem />
+                    {provided.placeholder}
+                  </div>
                 </div>
               )}
             </StrictModeDroppable>

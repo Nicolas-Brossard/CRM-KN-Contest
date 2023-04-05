@@ -90,7 +90,7 @@ const ModalList: React.FC<ModalListProps> = ({ data, type, refresh }) => {
       style={{
         maxWidth: '80%',
         minWidth: '70%',
-        margin: 'auto',
+        margin: '5%',
         padding: 5,
       }}
     >
@@ -116,7 +116,7 @@ const ModalList: React.FC<ModalListProps> = ({ data, type, refresh }) => {
         ) : (
           <List>
             {data.map((contact) => (
-              <ListItem key={contact.id}>
+              <ListItem key={contact.id} sx={{ display: 'flex' }}>
                 <ListItemText
                   primary={`${contact.first_name} ${contact.last_name}`}
                   sx={{ marginBottom: '50px' }}
@@ -163,31 +163,6 @@ const ModalList: React.FC<ModalListProps> = ({ data, type, refresh }) => {
                     flexDirection="column"
                     sx={{ height: '80%' }}
                   >
-                    <Button
-                      variant="outlined"
-                      style={{
-                        margin: '5px',
-                        color: '#12750bee',
-                        borderColor: '#12750bee',
-                      }}
-                      onClick={() => handleDelete(contact.id)}
-                      sx={{
-                        '&:hover': {
-                          color: 'white',
-                        },
-                        '&:focus': {
-                          outline: 'transparent',
-                          backgroundColor: '#12750bee',
-                          color: 'white',
-                        },
-                        '&:active': {
-                          backgroundColor: '#12750bee',
-                          boxShadow: 'none',
-                        },
-                      }}
-                    >
-                      Actions
-                    </Button>
                     <Button
                       variant="outlined"
                       color="primary"

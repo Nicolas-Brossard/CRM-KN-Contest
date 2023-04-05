@@ -11,6 +11,7 @@ import { StrictModeDroppable } from './StrictModeDroppable';
 import { TodoListWidget } from './TodoListWidget';
 import { AddTodoModal } from './AddTodoModal';
 import { CustomerAcquisitionBarChart } from './CustomerAcquisitionBarChart';
+import { ConversionRateWidget } from './ConversionRateWidget';
 
 import { B2bB2cPercentageChart } from './B2bB2cPercentageChart';
 
@@ -29,4 +30,5 @@ export {
   AddTodoModal,
   CustomerAcquisitionBarChart,
   B2bB2cPercentageChart,
+  ConversionRateWidget,
 };

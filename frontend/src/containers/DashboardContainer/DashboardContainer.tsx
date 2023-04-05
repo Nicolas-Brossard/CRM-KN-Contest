@@ -4,6 +4,7 @@ import {
   TodoListWidget,
   CustomerAcquisitionBarChart,
   B2bB2cPercentageChart,
+  ConversionRateWidget,
 } from '@/components';
 import React, { useState, useEffect, useCallback } from 'react';
 import { Box, Card, CardContent, IconButton, Typography } from '@mui/material';
@@ -253,8 +254,7 @@ const DashboardContainer: React.FC = () => {
                     },
                   }}
                 >
-                  {' '}
-                  <ContactTypePieChart data={contactTypeData} />
+                  <ConversionRateWidget contacts={contacts} />
                 </CardContent>
               </Card>
             </Box>

@@ -90,14 +90,18 @@ export const TodoListWidget: React.FC = () => {
       }}
     >
       <div>
-        <Typography variant="h6" align="center" sx={{ color: '#fff' }}>
-          Todo Liste
+        <Typography
+          variant="h6"
+          align="center"
+          sx={{ color: '#fff', margin: '17px', fontWeight: 'bold' }}
+        >
+          Rappels
         </Typography>
       </div>
       <List sx={{ backgroundColor: '#fff', height: '100%' }}>
         {todos.length === 0 ? (
           <Typography align="center" sx={{ color: '#2f3c4c', padding: '20px' }}>
-            Créez votre première todo
+            Créez votre premièr rappel
           </Typography>
         ) : (
           todos.map((todo) => (
@@ -148,13 +152,12 @@ export const TodoListWidget: React.FC = () => {
                     },
                   }}
                 >
-                  <CloseIcon style={{ width: '80%' }} />
+                  <CloseIcon style={{ width: '80%', color: '#303c4c' }} />
                 </IconButton>
               )}
             </ListItem>
           ))
         )}
-
         <div
           style={{
             display: 'flex',

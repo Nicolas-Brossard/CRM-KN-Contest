@@ -38,7 +38,7 @@ interface ContactFormProps {
 const getLastContactPosition = async (userId: string, contactType: string) => {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/contact/last-position?user_id=${userId}&type=${contactType}`
+      `http://localhost:3000/api/contact/last_position?userId=${userId}&type=${contactType}`
     );
     if (response.ok) {
       const data = await response.json();
