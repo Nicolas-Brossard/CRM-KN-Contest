@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { LogoKN } from '@/components/LogoKN';
 import {
@@ -8,13 +8,27 @@ import {
   ListItemText,
   ListItemIcon,
   Divider,
+  Button,
 } from '@mui/material';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LeadsIcon from '@mui/icons-material/Assignment';
 import ProspectsIcon from '@mui/icons-material/People';
 import ClientsIcon from '@mui/icons-material/AccountBox';
 import jwt_decode from 'jwt-decode';
-
+interface Contact {
+  updatedAt: any;
+  id: number;
+  type: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string | null;
+  company: string | null;
+  location: string | null;
+  status: string;
+  column: string;
+  position: number;
+}
 const isAdmin = () => {
   const token = localStorage.getItem('token');
   if (!token) return false;
@@ -34,6 +48,58 @@ const Sidebar: React.FC = () => {
     { text: 'Liste des prospects', icon: <ProspectsIcon /> },
     { text: 'Liste des clients', icon: <ClientsIcon /> },
   ];
+  const fetchUserContacts = async () => {
+    const token = localStorage.getItem('token');
+    let userId: string | null = null;
+    if (token) {
+      const decodedToken: any = jwt_decode(token);
+      userId = decodedToken.id;
+    }
+
+    const response = await fetch(
+      `http://localhost:3000/api/contact?userId=${userId}`
+    );
+    const data = await response.json();
+    return data;
+  };
+
+  const exportContactsToCSV = useCallback(async () => {
+    const contacts: Contact[] = await fetchUserContacts();
+    const headers = [
+      'id',
+      'type',
+      'first_name',
+      'last_name',
+      'email',
+      'phone',
+      'company',
+      'location',
+      'status',
+      'column',
+      'position',
+      'updatedAt',
+    ];
+
+    const csvContent =
+      headers.join(',') +
+      '\n' +
+      contacts
+        .map((contact) =>
+          headers
+            .map((header) => JSON.stringify((contact as any)[header]))
+            .join(',')
+        )
+        .join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'contacts.csv';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }, []);
 
   return (
     <Drawer
@@ -91,6 +157,22 @@ const Sidebar: React.FC = () => {
             />
           </ListItem>
         ))}
+        <ListItem>
+          <Button
+            onClick={exportContactsToCSV}
+            fullWidth
+            variant="outlined"
+            sx={{
+              color: '#2F3C4D',
+              borderColor: '#2F3C4D',
+              fontWeight: 'lighter',
+              textTransform: 'none',
+              mt: 2,
+            }}
+          >
+            Exporter en CSV
+          </Button>
+        </ListItem>
         <Divider />
         {isAdmin() && (
           <>
