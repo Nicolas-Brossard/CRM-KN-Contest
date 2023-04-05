@@ -1,4 +1,10 @@
-import { ContactTypePieChart, Board, TodoListWidget } from '@/components';
+import {
+  ContactTypePieChart,
+  Board,
+  TodoListWidget,
+  CustomerAcquisitionBarChart,
+  B2bB2cPercentageChart,
+} from '@/components';
 import React, { useState, useEffect, useCallback } from 'react';
 import { Box, Card, CardContent, IconButton, Typography } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -19,6 +25,10 @@ export interface Contact {
   position: number;
   updatedAt: string;
 }
+interface AcquisitionData {
+  source: string;
+  customers: number;
+}
 
 const DashboardContainer: React.FC = () => {
   const [contacts, setContacts] = useState<Contact[]>([]);
@@ -30,6 +40,14 @@ const DashboardContainer: React.FC = () => {
       value: 0,
     }))
   );
+  const [customerAcquisitionData, setCustomerAcquisitionData] = useState<
+    AcquisitionData[]
+  >([
+    { source: 'Publicité', customers: 10 },
+    { source: 'Référencement', customers: 24 },
+    { source: 'Réseaux sociaux', customers: 18 },
+    { source: 'Bouche à oreille', customers: 8 },
+  ]);
 
   const handleColumnChange = (contactId: number, newColumn: string) => {
     setContacts((prevContacts) =>
@@ -189,8 +207,7 @@ const DashboardContainer: React.FC = () => {
                     },
                   }}
                 >
-                  {' '}
-                  <ContactTypePieChart data={contactTypeData} />
+                  <B2bB2cPercentageChart contacts={contacts} />
                 </CardContent>
               </Card>
               <Card
@@ -213,8 +230,7 @@ const DashboardContainer: React.FC = () => {
                     },
                   }}
                 >
-                  {' '}
-                  <ContactTypePieChart data={contactTypeData} />
+                  <CustomerAcquisitionBarChart data={customerAcquisitionData} />
                 </CardContent>
               </Card>
               <Card
