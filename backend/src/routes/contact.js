@@ -4,6 +4,7 @@ const contactController = require('../controllers/contactController');
 const contactMiddleware = require('../middleware/contactMiddleware');
 
 router.get('/', contactController.getAll);
+router.get('/last_position', contactController.getLastPosition);
 router.get('/:id', contactMiddleware.validateGet, contactController.getOne);
 router.post(
   '/create',
@@ -16,6 +17,5 @@ router.delete(
   contactMiddleware.validateDelete,
   contactController.delete
 );
-router.get('/last-position', contactController.getLastPosition);
 
 module.exports = router;
