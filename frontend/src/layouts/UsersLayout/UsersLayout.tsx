@@ -9,7 +9,7 @@ const UsersLayout: React.FC = () => {
     if (token) {
       const decodedToken: any = jwt_decode(token);
       if (!decodedToken.is_admin) {
-        window.location.href = '/login';
+        window.location.href = '/';
       }
     }
   }, []);

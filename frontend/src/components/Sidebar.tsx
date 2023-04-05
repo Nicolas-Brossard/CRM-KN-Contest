@@ -14,6 +14,8 @@ import LeadsIcon from '@mui/icons-material/Assignment';
 import ProspectsIcon from '@mui/icons-material/People';
 import ClientsIcon from '@mui/icons-material/AccountBox';
 import GetAppIcon from '@mui/icons-material/GetApp';
+import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import jwt_decode from 'jwt-decode';
 interface Contact {
   updatedAt: any;
@@ -40,7 +42,10 @@ const isAdmin = () => {
     return false;
   }
 };
-
+const handleLogout = () => {
+  localStorage.removeItem('token');
+  window.location.href = '/';
+};
 const Sidebar: React.FC = () => {
   const menuItems = [
     { text: 'Votre Dashboard', icon: <DashboardIcon /> },
@@ -175,6 +180,24 @@ const Sidebar: React.FC = () => {
             }}
           />
         </ListItem>
+        <ListItem button onClick={handleLogout}>
+          <ListItemIcon
+            sx={{
+              minWidth: '35px',
+              marginLeft: '5px',
+            }}
+          >
+            <ExitToAppIcon />
+          </ListItemIcon>
+          <ListItemText
+            primary="Déconnexion"
+            style={{
+              color: '#2F3C4D',
+              font: 'open-san',
+              fontWeight: 'lighter',
+            }}
+          />
+        </ListItem>
         <Divider />
         {isAdmin() && (
           <>
@@ -192,7 +215,7 @@ const Sidebar: React.FC = () => {
               </ListItem>
               <Divider />
               <ListItem component={Link} to="/gestion-utilisateurs">
-                <LeadsIcon
+                <SupervisedUserCircleIcon
                   style={{
                     color: '#757575',
                   }}
