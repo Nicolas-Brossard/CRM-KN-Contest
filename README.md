@@ -15,6 +15,7 @@ Projet Open Source de gestion de relation client pour les entreprises.
   - [Installation](#installation)
   - [Utilisation](#utilisation)
   - [Fonctionnalités](#fonctionnalités)
+    - [Dashboard interactif contenant :](#dashboard-interactif-contenant-)
   - [Contribution](#contribution)
   - [Licence](#licence)
   - [Crédits](#crédits)
@@ -54,7 +55,9 @@ Décrivez les étapes pour installer et configurer votre projet sur l'ordinateur
 
 - [x] Création d'un compte
 - [x] Page de connexion (sans enregistrement) avec un compte administrateur par défaut.
-      Dashboard interactif contenant :
+
+#### Dashboard interactif contenant :
+
 - [x] Liste des actions à mener (avec dates)
 - [x] Statistiques de votre choix
 - [x] Actions rapides pour accéder aux informations importantes
