@@ -5,11 +5,19 @@ const ContactModel = require('./contact');
 const TodoModel = require('./todo');
 const ActionModel = require('./action');
 
-const sequelize = new Sequelize(process.env.DATABASE_URL, {
-  dialect: 'postgres',
-  protocol: 'postgres',
-  logging: false,
-});
+const env = process.env.NODE_ENV || 'development';
+const sequelizeConfig = config[env];
+
+const sequelize = new Sequelize(
+  sequelizeConfig.database,
+  sequelizeConfig.username,
+  sequelizeConfig.password,
+  {
+    host: sequelizeConfig.host,
+    dialect: sequelizeConfig.dialect,
+    logging: false,
+  }
+);
 
 const models = {
   User: UserModel(sequelize),
