@@ -16,7 +16,6 @@ Projet Open Source de gestion de relation client pour les entreprises.
   - [Utilisation](#utilisation)
   - [Fonctionnalités](#fonctionnalités)
   - [Contribution](#contribution)
-  - [Licence](#licence)
   - [Crédits](#crédits)
 
 ## Installation
@@ -37,18 +36,10 @@ Décrivez les étapes pour installer et configurer votre projet sur l'ordinateur
 
 2. Pour accéder à l'API, rendez-vous sur `http://localhost:3000/` avec votre navigateur.
 
-3. Pour créer le premier compte administrateur, effectuer la commande curl suivante : `curl --request POST \
-  --url http://localhost:3000/api/users/create \
-  --header 'Content-Type: application/json' \
-  --data '{
-  "username": "admin",
-  "password": "admin",
-  "email": "admin@admin.fr",
-  "is_admin": true
-}
-'`
+3. Vous pouvez maintenant vous connecter avec le compte administrateur. Les identifiants sont les suivants :
 
-4. Vous pouvez maintenant vous connecter avec le compte administrateur.
+   - Email : `admin@admin.com`
+   - Mot de passe : `admin`
 
 ## Fonctionnalités
 
@@ -62,7 +53,6 @@ Décrivez les étapes pour installer et configurer votre projet sur l'ordinateur
 - [x] Listing et gestion des clients
 - [x] Gestion automatique des statuts (lead, lead mort, prospect, prospect mort, client)
 - [x] Différenciation des contacts B2B et B2C
-      Gestion des actions :
 - [x] Ajout manuel d'actions pour les contacts (appels téléphoniques, mails, etc.)
 - [x] Administration et ajout de types d'actions par l'administrateur
 - [x] Commentaires longs pour chaque action
@@ -91,10 +81,6 @@ Si vous souhaitez contribuer au projet, veuillez suivre les étapes ci-dessous :
 3. Committez vos modifications (`git commit -am 'Add my feature'`)
 4. Poussez votre branche (`git push origin feature/my-feature`)
 5. Ouvrez une Pull Request
-
-## Licence
-
-Ce projet est sous licence [MIT](LICENSE).
 
 ## Crédits
 
